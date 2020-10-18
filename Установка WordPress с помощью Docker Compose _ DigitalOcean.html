@@ -1,0 +1,1879 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>Установка WordPress с помощью Docker Compose | DigitalOcean</title>
+
+<meta name="description" content="WordPress — бесплатная система управления контентом (CMS) с открытым исходным кодом, которая опирается на базу данных…">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/community/apple-icon-180x180-4b5ac7f80f7cb483dde5afeb99c279301c50ec3670129c73ce568f1b465354be.png" />
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/community/apple-icon-152x152-ff64fd3242c24284fefdaec8d6d85c68f98744142d58b950f7ec67cbf03251d7.png" />
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/community/apple-icon-144x144-3018401d3d675917b06ded0482cdf53a7c3558b4dc7b6b8de21a485a8da27dfe.png" />
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/community/apple-icon-120x120-052cdf68a3af8b01c3fd0d46ed35f8f089c10c690109d20e7b186f0159391863.png" />
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/community/apple-icon-114x114-8d862033fc61d86a60b4bdbbbab284da399da714089995ce7efc249f36409517.png" />
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/community/apple-icon-76x76-d7c1877f2224ca127b591f65d16635fa7472e7b2cd0e1fe7e7dc8b74d03dd874.png" />
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/community/apple-icon-72x72-2d888cc13ddb01fb0d786a0c8567c0a2909eaeb86901da715099b6b88a36b46a.png" />
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/community/apple-icon-60x60-01be5b392df60249f168b8b2eed5c928c63aa43ac398c7180cd219c5acdd1e70.png" />
+<link rel="apple-touch-icon" sizes="57x57" href="/assets/community/apple-icon-57x57-d060d0fd30794efd579d9edc283917e0a65adfd366e151d9a5cfd8fd7d07cb43.png" />
+
+<link rel="icon" type="image/png" sizes="192x192"  href="/assets/community/android-icon-192x192-4d13e6664f412f6904a78be76d626004bcbbd59671f6c755919628134003c2a8.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/community/favicon-32x32-e377577c425642ab495296dfec040ec903e36ffc4cd7a0a4281e84597891a774.png" />
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/community/favicon-96x96-967f34b6716bb3cffebefe1fa53206d38d60c72635e826ec5d172c58fb4ab5a9.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/community/favicon-16x16-ce9c1eb6d969d5b2ec276ae4b715756aa0e63106f33dc53a836687fdfee49ecd.png" />
+
+<meta name="msapplication-TileImage" content="/assets/community/ms-icon-144x144-3018401d3d675917b06ded0482cdf53a7c3558b4dc7b6b8de21a485a8da27dfe.png" />
+<meta name="msapplication-TileColor" content="#0069ff" />
+<meta name="theme-color" content="#0069ff" />
+
+<meta property="og:title" content="Установка WordPress с помощью Docker Compose | DigitalOcean">
+<meta property="og:description" content="WordPress — бесплатная система управления контентом (CMS) с открытым исходным кодом, которая опирается на базу данных…">
+<meta property="og:site_name" content="DigitalOcean">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://www.digitalocean.com/assets/community/illustrations/DigitalOcean_Community-e00e73a18df20667c3117725e727f3ade330204dff619ad8153050ded7341627.jpg">
+<meta property="og:image:url" content="https://www.digitalocean.com/assets/community/illustrations/DigitalOcean_Community-e00e73a18df20667c3117725e727f3ade330204dff619ad8153050ded7341627.jpg">
+<meta property="og:image:alt" content="Установка WordPress с помощью Docker Compose | DigitalOcean">
+<meta property="og:url" content="https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-ru">
+
+<meta name="twitter:site" content="@digitalocean">
+<meta name="twitter:title" content="Установка WordPress с помощью Docker Compose | DigitalOcean">
+<meta name="twitter:description" content="WordPress — бесплатная система управления контентом (CMS) с открытым исходным кодом, которая опирается на базу данных…">
+<meta name="twitter:creator" content="DigitalOcean">
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content="https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-ru"/>
+<meta name="twitter:image" content="https://www.digitalocean.com/assets/community/illustrations/DigitalOcean_Community-e00e73a18df20667c3117725e727f3ade330204dff619ad8153050ded7341627.jpg">
+<meta name="twitter:image:alt" content="Установка WordPress с помощью Docker Compose | DigitalOcean">
+
+  <link rel='canonical' href='https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-ru'>
+
+  <link rel='amphtml' href='https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-ru.amp'>
+
+        <link rel="alternate" hreflang="en" href="https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose" />
+      <link rel="alternate" hreflang="es" href="https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-es" />
+      <link rel="alternate" hreflang="pt" href="https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-pt" />
+      <link rel="alternate" hreflang="ru" href="https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-ru" />
+
+
+    
+    <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="nXojhA38bb0Eq74TQrz4lE9LSrERNYazqbV7m2m1tnxZRzhfd/38PMKcW5j+cZIo757wlW6Q3pzRjinX55sv+Q==" />
+
+    <link rel="stylesheet" media="all" href="/assets/community/application-cfda0f47bed431f07d1a854d7fe6f8028a1a2a762ab9ae53760c360001fed64c.css" />
+    <script src="/assets/community/prerequisites-d767b66db7c8ba7d47a922cfce41c73d40601b3586be6f96107d5cd25cc752b8.js"></script>
+
+      <link rel="preconnect" href="https://digitalocean.cdn.prismic.io">
+      <link rel="preconnect" href="https://hello.myfonts.net">
+      <link rel="alternate" type="application/rss+xml" title="RSS" href="/community/tutorials/feed">
+
+      <script>
+//<![CDATA[
+
+  window.cookieDomain = '.digitalocean.com';
+
+//]]>
+</script><script defer src="https://assets.digitalocean.com/cookieConsent/cookieConsent.js"></script>
+<script>
+  (function () {
+    document.addEventListener("DOMContentLoaded", function () {
+      var css = document.getElementById("cookie-consent-css");
+
+      if (css) { return; }
+
+      css = document.createElement("link");
+      css.id = "cookie-consent-css";
+      css.rel = "stylesheet";
+      css.href = "https://assets.digitalocean.com/cookieConsent/cookieConsent.css";
+      document.head.insertBefore(css, document.head.childNodes[ document.head.childNodes.length - 1 ].nextSibling);
+    }, false);
+  })();
+</script>
+
+      <script type="text/javascript">
+  if(window.analytics=window.analytics||[],window.analytics.included)window.console&&console.error&&console.error("analytics.js included twice");else{window.analytics.included=!0,window.analytics.methods=["identify","group","track","page","pageview","alias","ready","on","once","off","trackLink","trackForm","trackClick","trackSubmit"],window.analytics.factory=function(a){return function(){var n=Array.prototype.slice.call(arguments);return n.unshift(a),window.analytics.push(n),window.analytics}};for(var i=0;i<window.analytics.methods.length;i++){var key=window.analytics.methods[i];window.analytics[key]=window.analytics.factory(key)}window.analytics.load=function(a){var n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+a+"/analytics.min.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(n,t)},window.analytics.SNIPPET_VERSION="2.0.9",window.analytics.load("puo3uv968t")}
+  window.analytics.page();
+</script>
+
+<!-- Google Tag Manager -->
+<script>
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KHWBBT');
+</script>
+<!-- End Google Tag Manager -->
+
+<script src="/assets/community/internalCookies-d87064530395e23ede521d41535044c0b89092bef82bbb545bd1c8f731908bad.js"></script>
+
+        <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+      <script>
+        window.comApp = {
+          prefix: '/community',
+          svgIconPath: 'https://www.digitalocean.com/assets/community/icon-sprite-a36f54b391966bc94e4a1e4467047db73568edf98e549f4bc919b952f5272560.svg',
+          railsEnv: 'production',
+          rootUrl: 'https://www.digitalocean.com/community',
+          algolia_application_id: '6ZHEUVKJ88',
+          algolia_api_key: 'c5470567eae7fa1177d43222e18ba086'
+        };
+      </script>
+      <script>
+  window.Prism = window.Prism || {};
+  window.Prism.manual = true;
+</script>
+ 
+
+    <script src="/assets/community/application-0d651edf8cbc7184e92013080e5c6bac1dbc1db8d90c18e0525f105c6b371f89.js"></script>
+  </head>
+
+  <body class="feature-filter-bar feature-upvotes tutorials-controller tutorial-single" data-env="production" data-prefix="/community" data-user-id="" data-facebook-app-id="694818843983011"   data-completed-tutorial-id="" data-tutorial-id="3454" data-js="tutorial"
+>
+    
+
+    <div class='outside_viewport'>
+        <div id="contents-modal" class="hidden" role="dialog" aria-labelledby="contents-modal-title" aria-modal='true'>
+    <div class='mini-dialog-panel'>
+      <div class='dialog-header'>
+        <span class='close-btn'>&times;</span>
+        <span class='dialog-title' id="contents-modal-title">Contents</span>
+      </div>
+
+      <div class='dialog-body'>
+        <div class="table-of-contents-modal"></div>
+      </div>
+    </div>
+  </div>
+    <div class="table-of-contents">
+      <div data-js="tableOfContentsDesktop"></div>
+    </div>
+    <div id='share-modal' class="hidden" role="dialog" aria-labelledby="share-modal-title" aria-modal='true'>
+  <div class='mini-dialog-panel'>
+    <div class='dialog-header'>
+      <span class='close-btn'>&times;</span>
+      <span class='dialog-title' id="share-modal-title">Share this Tutorial</span>
+    </div>
+
+    <div class='dialog-body'>
+      <h2>Where would you like to share this to?</h2>
+
+      <div class="social-sharing social-sharing-container">
+        <ul>
+          <li class="shareBtn" id="sbTwitter">
+            <a href="http://twitter.com/share?text=%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0%20WordPress%20%D1%81%20%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%D1%8E%20Docker%20Compose&amp;url=https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-ru?utm_content=how-to-install-wordpress-with-docker-compose-ru&amp;utm_medium=community&amp;utm_source=twshare" class="share-icon share-popup" title="Share on Twitter" target="_blank">
+              <span class="sIcon icon-bird"></span>
+            </a>
+            <a href="http://twitter.com/share?text=%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0%20WordPress%20%D1%81%20%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%D1%8E%20Docker%20Compose&amp;url=https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-ru?utm_content=how-to-install-wordpress-with-docker-compose-ru&amp;utm_medium=community&amp;utm_source=twshare" class="share-link share-popup" title="Share on Twitter" target="_blank">
+              Twitter
+            </a>
+          </li>
+
+          <li class="shareBtn" id="sbReddit">
+            <a href="https://www.reddit.com/submit?title=%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0%20WordPress%20%D1%81%20%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%D1%8E%20Docker%20Compose&amp;url=https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-ru?utm_content=how-to-install-wordpress-with-docker-compose-ru&amp;utm_medium=community&amp;utm_source=rdshare" class="share-icon share-popup" target="_blank" title="Share on Reddit">
+              <span class="sIcon icon-reddit"></span>
+            </a>
+            <a href="https://www.reddit.com/submit?title=%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0%20WordPress%20%D1%81%20%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%D1%8E%20Docker%20Compose&amp;url=https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-ru?utm_content=how-to-install-wordpress-with-docker-compose-ru&amp;utm_medium=community&amp;utm_source=rdshare" class="share-link share-popup" target="_blank" title="Share on Reddit">
+              Reddit
+            </a>
+          </li>
+
+          <li class="shareBtn" id="sbYC">
+            <a href="https://news.ycombinator.com/submitlink?t=%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0%20WordPress%20%D1%81%20%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%D1%8E%20Docker%20Compose&amp;u=https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-ru?utm_content=how-to-install-wordpress-with-docker-compose-ru&amp;utm_medium=community&amp;utm_source=hnshare" class="share-icon share-popup" target="_blank" title="Submit to Hacker News">
+              <span class="sIcon icon-hacker-news"></span>
+            </a>
+            <a href="https://news.ycombinator.com/submitlink?t=%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0%20WordPress%20%D1%81%20%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%D1%8E%20Docker%20Compose&amp;u=https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-ru?utm_content=how-to-install-wordpress-with-docker-compose-ru&amp;utm_medium=community&amp;utm_source=hnshare" class="share-link share-popup" target="_blank" title="Submit to Hacker News">
+              Hacker News
+            </a>
+          </li>
+
+          <li class="shareBtn" id="sbFacebook">
+            <a class="share-icon share-popup" href="https://www.facebook.com/sharer/sharer.php?u=https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-ru?utm_content=how-to-install-wordpress-with-docker-compose-ru&amp;utm_medium=community&amp;utm_source=fbshare" title="Share on Facebook" target="_blank">
+              <span class="sIcon icon-facebook-B"></span>
+            </a>
+            <a class="share-link share-popup" href="https://www.facebook.com/sharer/sharer.php?u=https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-ru?utm_content=how-to-install-wordpress-with-docker-compose-ru&amp;utm_medium=community&amp;utm_source=fbshare" title="Share on Facebook" target="_blank">
+              Facebook
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="flex-form">
+        <p class="dialog-text">Share link</p>
+
+        <label for="share-modal-share-link" class="sr-only">Tutorial share link</label>
+        <div class="field">
+          <input type="text" id="share-modal-share-link" name="share-modal-share-link" readonly="readonly"
+                 value="https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-ru?utm_content=how-to-install-wordpress-with-docker-compose-ru&amp;utm_medium=community&amp;utm_source=linkshare" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <!-- algolia universal search -->
+<input type="hidden" id="q-universal-search" value="" />
+
+
+
+<div id='share-modal' class="hidden" role="dialog" aria-labelledby="share-modal-title" aria-modal='true'>
+  <div class='mini-dialog-panel'>
+    <div class='dialog-header'>
+      <span class='close-btn'>&times;</span>
+      <span class='dialog-title' id="share-modal-title">Share this Tutorial</span>
+    </div>
+
+    <div class='dialog-body'>
+      <h2>Where would you like to share this to?</h2>
+
+      <div class="social-sharing social-sharing-container">
+        <ul>
+          <li class="shareBtn" id="sbTwitter">
+            <a href="http://twitter.com/share?text=%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0%20WordPress%20%D1%81%20%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%D1%8E%20Docker%20Compose&amp;url=https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-ru?utm_content=how-to-install-wordpress-with-docker-compose-ru&amp;utm_medium=community&amp;utm_source=twshare" class="share-icon share-popup" title="Share on Twitter" target="_blank">
+              <span class="sIcon icon-bird"></span>
+            </a>
+            <a href="http://twitter.com/share?text=%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0%20WordPress%20%D1%81%20%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%D1%8E%20Docker%20Compose&amp;url=https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-ru?utm_content=how-to-install-wordpress-with-docker-compose-ru&amp;utm_medium=community&amp;utm_source=twshare" class="share-link share-popup" title="Share on Twitter" target="_blank">
+              Twitter
+            </a>
+          </li>
+
+          <li class="shareBtn" id="sbReddit">
+            <a href="https://www.reddit.com/submit?title=%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0%20WordPress%20%D1%81%20%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%D1%8E%20Docker%20Compose&amp;url=https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-ru?utm_content=how-to-install-wordpress-with-docker-compose-ru&amp;utm_medium=community&amp;utm_source=rdshare" class="share-icon share-popup" target="_blank" title="Share on Reddit">
+              <span class="sIcon icon-reddit"></span>
+            </a>
+            <a href="https://www.reddit.com/submit?title=%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0%20WordPress%20%D1%81%20%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%D1%8E%20Docker%20Compose&amp;url=https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-ru?utm_content=how-to-install-wordpress-with-docker-compose-ru&amp;utm_medium=community&amp;utm_source=rdshare" class="share-link share-popup" target="_blank" title="Share on Reddit">
+              Reddit
+            </a>
+          </li>
+
+          <li class="shareBtn" id="sbYC">
+            <a href="https://news.ycombinator.com/submitlink?t=%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0%20WordPress%20%D1%81%20%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%D1%8E%20Docker%20Compose&amp;u=https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-ru?utm_content=how-to-install-wordpress-with-docker-compose-ru&amp;utm_medium=community&amp;utm_source=hnshare" class="share-icon share-popup" target="_blank" title="Submit to Hacker News">
+              <span class="sIcon icon-hacker-news"></span>
+            </a>
+            <a href="https://news.ycombinator.com/submitlink?t=%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0%20WordPress%20%D1%81%20%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%D1%8E%20Docker%20Compose&amp;u=https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-ru?utm_content=how-to-install-wordpress-with-docker-compose-ru&amp;utm_medium=community&amp;utm_source=hnshare" class="share-link share-popup" target="_blank" title="Submit to Hacker News">
+              Hacker News
+            </a>
+          </li>
+
+          <li class="shareBtn" id="sbFacebook">
+            <a class="share-icon share-popup" href="https://www.facebook.com/sharer/sharer.php?u=https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-ru?utm_content=how-to-install-wordpress-with-docker-compose-ru&amp;utm_medium=community&amp;utm_source=fbshare" title="Share on Facebook" target="_blank">
+              <span class="sIcon icon-facebook-B"></span>
+            </a>
+            <a class="share-link share-popup" href="https://www.facebook.com/sharer/sharer.php?u=https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-ru?utm_content=how-to-install-wordpress-with-docker-compose-ru&amp;utm_medium=community&amp;utm_source=fbshare" title="Share on Facebook" target="_blank">
+              Facebook
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="flex-form">
+        <p class="dialog-text">Share link</p>
+
+        <label for="share-modal-share-link" class="sr-only">Tutorial share link</label>
+        <div class="field">
+          <input type="text" id="share-modal-share-link" name="share-modal-share-link" readonly="readonly"
+                 value="https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-ru?utm_content=how-to-install-wordpress-with-docker-compose-ru&amp;utm_medium=community&amp;utm_source=linkshare" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+      
+    </div>
+
+      
+      
+<div style="display: none;">
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <symbol id="navbar-logo" xmlns="http://www.w3.org/2000/svg"> <title>DigitalOcean home</title> <g fill="currentColor" fill-rule="evenodd"> <path d="M14.4942 29v-5.5674c5.9572 0 10.5633-5.8478 8.2892-12.059-.8425-2.3006-2.693-4.1355-5.0126-4.9706-6.262-2.2534-12.1564 2.3135-12.1573 8.2207 0 0-.0006.0014-.0014.0014H0C0 5.2123 9.1687-2.1167 19.1138.9624c4.3459 1.3457 7.7993 4.7708 9.1561 9.081C31.3742 19.9068 23.985 29 14.4942 29"></path> <path d="M14.507 23.4468H8.9103v-5.549s.0005-.0011.0011-.0011h5.5949c.0006 0 .0009.0006.0009.0006v5.5495M8.9093 27.7118H4.6105l-.0012-.0012v-4.2638h4.3009v4.2638l-.0009.0012M4.6125 23.4468H1.0088c-.0015 0-.0026-.0012-.0026-.0012v-3.5724s.0011-.0025.0026-.0025h3.601c.0015 0 .0027.0011.0027.0011v3.575M43.2806 9.6357h1.649c1.8346 0 3.345.358 4.49 1.0647 1.2714.7603 1.9164 2.2069 1.9164 4.2991 0 2.1554-.6465 3.6671-1.9207 4.4942h-.0008c-1.0971.7196-2.5981 1.0846-4.462 1.0846h-1.6719V9.6357zm8.324-1.0736c-1.6598-1.142-3.7252-1.721-6.1387-1.721h-5.2537V23.373h5.2537c2.4074 0 4.4737-.6113 6.1407-1.8157.907-.6382 1.6197-1.5304 2.1185-2.651.4962-1.1144.7479-2.4288.7479-3.9067 0-1.4605-.2517-2.758-.7482-3.857-.4988-1.104-1.212-1.972-2.1202-2.5804zM58.1303 6.6376c-.5051 0-.9403.1777-1.2906.5254-.3546.335-.5346.7597-.5346 1.2618 0 .501.1791.9322.532 1.2825.3529.35.788.528 1.2932.528.5042 0 .9394-.178 1.2928-.528.3535-.3508.5324-.7821.5324-1.2825 0-.5015-.18-.926-.5324-1.2592-.3534-.3503-.7886-.528-1.2928-.528M56.6247 23.3729h2.9538V11.7294h-2.9538zM69.5321 19.5787c-.5162.5814-1.1793.8635-2.0264.8635-.8471 0-1.5064-.282-2.015-.863-.5065-.5777-.7637-1.3439-.7637-2.2773 0-.9479.2572-1.7238.764-2.3058.502-.576 1.1796-.8683 2.0147-.8683.8465 0 1.5096.284 2.0262.8695.5142.582.7751 1.3573.7751 2.3046 0 .9328-.2609 1.6988-.7749 2.2768zm.775-6.8767c-.8908-.7858-1.8858-1.2444-2.9614-1.2444-1.6305 0-2.9859.5598-4.0276 1.662-1.0555 1.0932-1.5907 2.5006-1.5907 4.1823 0 1.644.5269 3.0464 1.568 4.1709 1.0498 1.088 2.4123 1.6396 4.0503 1.6396 1.139 0 2.1182-.3144 2.9157-.9356v.268c0 .9662-.2608 1.7176-.7751 2.234-.5137.5154-1.226.7764-2.1173.7764-1.3637 0-2.2183-.5314-3.2589-1.9262l-2.0115 1.917.0542.0754c.4346.605 1.1 1.197 1.9785 1.7594.8787.5603 1.9832.8447 3.2832.8447 1.7536 0 3.1726-.5363 4.2172-1.5933 1.0506-1.0628 1.5835-2.486 1.5835-4.2286V11.7294H70.307v.9726zM75.7434 23.3729h2.9541V11.7294h-2.9541zM77.249 6.6376c-.5052 0-.94.1777-1.2906.5254-.3547.335-.5344.7597-.5344 1.2618 0 .501.1789.9322.532 1.2825.353.35.7878.528 1.293.528.5045 0 .9396-.178 1.2928-.528.3535-.3508.5323-.7821.5323-1.2825 0-.5015-.1797-.926-.5323-1.2592-.3532-.3503-.7883-.528-1.2929-.528M85.1724 8.5831h-2.9082v3.1463h-1.6888v2.6702h1.6888v4.8365c0 1.5134.3047 2.5964.9064 3.2181.6031.6247 1.6741.9414 3.1831.9414.48 0 .963-.0156 1.4354-.0463l.133-.0088v-2.6683l-1.013.0526c-.7033 0-1.1728-.1226-1.3961-.3637-.226-.245-.3406-.7636-.3406-1.5404v-4.421h2.7497v-2.6703h-2.7497V8.583M101.7735 23.3729h2.9544V6.8412h-2.9544zM134.5728 19.2094c-.5286.5874-1.0693 1.0966-1.4855 1.3613v.0005c-.4085.2599-.924.3918-1.532.3918-.8703 0-1.5703-.3144-2.1405-.9621-.567-.644-.8545-1.4716-.8545-2.4613s.2838-1.8162.8436-2.4556c.5625-.6434 1.2588-.9562 2.1285-.9562.9515 0 1.9548.5869 2.8145 1.5947l1.9525-1.8568c-1.273-1.6433-2.897-2.4081-4.8352-2.4081-1.622 0-3.028.5862-4.1788 1.7411-1.1446 1.147-1.7251 2.6074-1.7251 4.3409 0 1.7335.58 3.1977 1.7234 4.352 1.1447 1.1557 2.5514 1.7417 4.1805 1.7417 2.139 0 3.8651-.9158 5.029-2.5935l-1.9204-1.8304M140.2405 16.0973c.1422-.5567.401-1.0207.7714-1.381.4005-.3906.9214-.5885 1.5489-.5885.716 0 1.2702.2019 1.6474.6014.3495.3696.5467.8296.588 1.368h-4.5557zm6.4569-2.7414c-.4191-.5788-.9896-1.0448-1.6965-1.3854-.7047-.3404-1.526-.513-2.441-.513-1.6489 0-2.9982.6037-4.0113 1.7946-.9836 1.182-1.4818 2.651-1.4818 4.3665 0 1.7648.547 3.2253 1.6254 4.341 1.0727 1.1105 2.5083 1.6737 4.267 1.6737 1.992 0 3.627-.799 4.8587-2.3752l.0666-.0847-1.9273-1.837c-.1789.2139-.4317.4561-.6628.6722-.2918.273-.5659.4842-.8588.6289-.4415.218-.9369.3255-1.4907.3255-.8187 0-1.4964-.2388-2.0147-.71-.4847-.4403-.768-1.0345-.843-1.7683h7.8265l.0264-1.0693c0-.7569-.1038-1.4862-.3088-2.1677a6.312 6.312 0 0 0-.934-1.8918zM152.797 18.9234c.3352-.2318.8085-.3483 1.4073-.3483.7112 0 1.4654.1413 2.2426.421v1.1421c-.6421.592-1.4996.8922-2.5499.8922-.5114 0-.909-.1126-1.1822-.3355-.2683-.218-.3985-.4955-.3985-.847 0-.3994.1571-.7022.4808-.9245zm5.2452-6.3229h-.0003c-.8952-.758-2.1328-1.143-3.678-1.143-.9829 0-1.902.2144-2.7336.6324-.7691.387-1.5245 1.0275-2.0043 1.8662l.0298.0358 1.8917 1.796c.7791-1.2322 1.6454-1.66 2.7941-1.66.6172 0 1.1298.1643 1.5234.4881.3916.3216.5819.7304.5819 1.249v.5652c-.7324-.221-1.4629-.333-2.1738-.333-1.47 0-2.6663.3432-3.555 1.0193-.9.6852-1.3562 1.665-1.3562 2.9125 0 1.094.3847 1.9829 1.1461 2.6433.7677.6372 1.7275.961 2.8524.961 1.1246 0 2.177-.4495 3.132-1.2191v.9587h2.9089v-7.4852c0-1.4173-.4572-2.523-1.3591-3.2872zM170.7656 12.8285c-.8227-.9092-1.9791-1.371-3.4371-1.371-1.172 0-2.1236.3338-2.8357.9926v-.7207h-2.897v11.6435h2.954v-6.4215c0-.8823.2119-1.5828.6293-2.0826.4162-.4987.989-.741 1.75-.741.6691 0 1.1765.2167 1.5506.662.3759.4474.5662 1.0638.5662 1.8335v6.7496H172v-6.7496c0-1.6127-.415-2.889-1.2344-3.7948M92.8158 18.9234c.3351-.2318.8087-.3483 1.4075-.3483.7112 0 1.4652.1413 2.2426.421v1.1421c-.6421.592-1.4998.8922-2.5502.8922-.5114 0-.9087-.1126-1.1819-.3355-.2683-.218-.3988-.4955-.3988-.847 0-.3994.1574-.7022.4808-.9245zm5.2451-6.3229h-.0003c-.8952-.758-2.1328-1.143-3.6776-1.143-.983 0-1.902.2144-2.7337.6324-.7694.387-1.5247 1.0275-2.0043 1.8662l.0295.0358 1.8917 1.796c.7792-1.2322 1.6458-1.66 2.7941-1.66.6172 0 1.1298.1643 1.5234.4881.3916.3216.5822.7304.5822 1.249v.5652c-.7327-.221-1.4631-.333-2.174-.333-1.47 0-2.6664.3432-3.555 1.0193-.8999.6852-1.3562 1.665-1.3562 2.9125 0 1.094.3847 1.9829 1.1463 2.6433.7677.6372 1.7272.961 2.8524.961 1.1246 0 2.1766-.4495 3.1318-1.2191v.9587H99.42v-7.4852c0-1.4173-.457-2.523-1.359-3.2872zM115.4464 9.5808c-3.0682 0-5.5645 2.4755-5.5645 5.5188s2.4963 5.5188 5.5645 5.5188c3.0682 0 5.5645-2.4755 5.5645-5.5188s-2.4963-5.5188-5.5645-5.5188zm0 14.0408c-4.7383 0-8.5928-3.8228-8.5928-8.522 0-4.6994 3.8545-8.5223 8.5928-8.5223 4.738 0 8.5925 3.8229 8.5925 8.5223 0 4.6992-3.8545 8.522-8.5925 8.522z"></path> </g> </symbol>
+    <symbol id="navbar-community_logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 532.2 99.8" fill="currentColor"> <path class="st0" d="M98.5,23c15.5,0,27.7,12.1,27.7,28.2c0,16.1-12.3,28.1-27.7,28.1c-15.6,0-27.7-11.9-27.7-28.1 C70.8,35.1,82.9,23,98.5,23z M98.5,67.9c8.7,0,14.9-7,14.9-16.8c0-9.8-6.2-16.8-14.9-16.8c-8.8,0-15,7-15,16.8 C83.5,60.9,89.7,67.9,98.5,67.9z"/> <path class="st0" d="M166.8,45.9c0-7-3.5-11.6-9.9-11.6c-7.2,0-11.1,5.3-11.1,13.1V78h-12.5V24.3h12.3V29c2.4-2.8,7-6,13.9-6 c7.3,0,12.2,3.1,15,7c4.4-4.9,10-7,16.8-7c14.4,0,21.4,8.5,21.4,23.8V78h-12.5V45.9c0-7-3.5-11.6-9.9-11.6 c-7.2,0-11.2,5.3-11.2,13.1V78h-12.4V45.9z"/> <path class="st0" d="M255.5,45.9c0-7-3.5-11.6-9.9-11.6c-7.2,0-11.1,5.3-11.1,13.1V78h-12.5V24.3h12.3V29c2.4-2.8,7-6,13.9-6 c7.3,0,12.2,3.1,15,7c4.4-4.9,10-7,16.8-7c14.4,0,21.4,8.5,21.4,23.8V78h-12.5V45.9c0-7-3.5-11.6-9.9-11.6 c-7.2,0-11.2,5.3-11.2,13.1V78h-12.4V45.9z"/> <path class="st0" d="M322.5,56.4c0,7,3.6,11.6,10.1,11.6c7.2,0,11.2-5.6,11.2-13.5V24.3h12.5V78h-12.3v-4.4 c-3.4,3.7-8.1,5.6-13.9,5.6c-11.9,0-20.1-8.4-20.1-23.7V24.3h12.5V56.4z"/> <path class="st0" d="M378.2,78h-12.5V24.3h12.3v4.4c2.7-3.1,7.7-5.7,13.9-5.7c13.1,0,21.3,8.5,21.3,23.8V78h-12.5V46.8 c0-7.5-3.7-12.5-10.6-12.5c-7.8,0-11.8,5.6-11.8,14V78z"/> <path class="st0" d="M427.8,0.2c4.4,0,7.9,3.4,7.9,7.8s-3.5,7.9-7.9,7.9c-4.4,0-7.9-3.5-7.9-7.9S423.4,0.2,427.8,0.2z M421.4,24.3 h12.5V78h-12.5V24.3z"/> <path class="st0" d="M446.7,59.1V35.5h-6.5V24.3h6.5v-15H459v15h12.2v11.2H459v21.7c0,7.8,1.8,9.8,8.8,9.8c1.2,0,4.1-0.2,4.1-0.2 v11.2c0,0-2.4,0.2-6.7,0.2C451.2,78.1,446.7,72.7,446.7,59.1z"/> <path class="st0" d="M497.3,78.7l-21.3-54.4h14.2l14,38.8l14.2-38.8h13.6l-24.1,60.2c-3.7,9.4-7.2,15.3-21.3,15.3 c-2.5,0-4.8-0.1-4.8-0.1V88c0,0,1.5,0.1,2.8,0.1c7.6,0,9.8-2.3,11.8-7.8L497.3,78.7z"/> <path class="st0" d="M62.4,55.9c-5.3,7-12.2,11.4-22.1,11.4c-15.6,0-27-11.7-27-27.5c0-16.1,11.4-27.8,26.5-27.8 c10,0,16.8,4.8,21.3,11.3l8.4-8.8C63.1,5.7,53.3,0,39.7,0C17.1,0,0,15.9,0,39.8c0,23.4,17.1,39.4,40.1,39.4c13.1,0,22-4.9,28.6-12.2 L62.4,55.9z"/> </symbol>
+    <symbol id="navbar-control_panel_icon" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M19.6875 23.4862C19.6885 23.9722 19.4965 24.4388 19.1537 24.7833C18.8109 25.1279 18.3454 25.3222 17.8594 25.3237H3.23438C2.99366 25.3232 2.75539 25.2753 2.53321 25.1827C2.31102 25.09 2.10927 24.9545 1.93949 24.7839C1.7697 24.6132 1.63522 24.4108 1.54373 24.1881C1.45223 23.9655 1.40552 23.727 1.40626 23.4862V3.25498C1.40577 3.01417 1.45271 2.77562 1.54441 2.55295C1.63611 2.33028 1.77077 2.12785 1.9407 1.95722C2.11063 1.7866 2.31251 1.65111 2.5348 1.5585C2.75709 1.46589 2.99545 1.41797 3.23626 1.41748L17.8613 1.44186C18.347 1.44384 18.812 1.63843 19.1544 1.98292C19.4968 2.32741 19.6885 2.79366 19.6875 3.27936V23.4862Z" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> <path d="M43.5863 12.27C43.5828 12.7516 43.3883 13.212 43.0456 13.5503C42.7028 13.8885 42.2397 14.0768 41.7582 14.0738H27.1332C26.8947 14.0755 26.6582 14.0302 26.4372 13.9405C26.2162 13.8507 26.015 13.7183 25.8453 13.5508C25.6755 13.3833 25.5404 13.1839 25.4477 12.9642C25.355 12.7444 25.3065 12.5085 25.3051 12.27V3.24565C25.308 2.76461 25.5019 2.30442 25.8439 1.96621C26.186 1.62799 26.6484 1.43941 27.1294 1.4419L41.7544 1.41753C42.2365 1.41403 42.7002 1.60205 43.0437 1.94027C43.3872 2.27849 43.5823 2.73924 43.5863 3.22128V12.27Z" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> <path d="M19.6875 41.7956C19.686 42.0347 19.6375 42.2712 19.5446 42.4915C19.4518 42.7118 19.3164 42.9117 19.1463 43.0797C18.9762 43.2477 18.7747 43.3806 18.5532 43.4707C18.3318 43.5609 18.0947 43.6065 17.8556 43.605L3.23063 43.5806C2.74908 43.5826 2.28644 43.3934 1.94436 43.0545C1.60228 42.7155 1.40873 42.2547 1.40625 41.7731V32.7563C1.40748 32.5175 1.45575 32.2813 1.54831 32.0612C1.64087 31.8412 1.7759 31.6415 1.94569 31.4736C2.11547 31.3057 2.31667 31.173 2.53779 31.0829C2.75892 30.9929 2.99562 30.9473 3.23438 30.9488H17.8594C18.3414 30.9463 18.8047 31.1352 19.1475 31.4742C19.4903 31.8131 19.6845 32.2742 19.6875 32.7563V41.7956Z" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> <path d="M27.1349 43.605C26.894 43.6045 26.6555 43.5565 26.433 43.4638C26.2106 43.3711 26.0087 43.2354 25.8387 43.0646C25.6688 42.8937 25.5341 42.6911 25.4426 42.4682C25.351 42.2453 25.3042 42.0066 25.3049 41.7656V21.5381C25.3042 21.2973 25.3509 21.0587 25.4424 20.8359C25.5338 20.6132 25.6683 20.4106 25.8381 20.2398C26.0078 20.069 26.2095 19.9333 26.4317 19.8405C26.6539 19.7476 26.8923 19.6995 27.1331 19.6987H41.7581C41.9989 19.6995 42.2372 19.7476 42.4594 19.8405C42.6816 19.9333 42.8833 20.069 43.0531 20.2398C43.2228 20.4106 43.3573 20.6132 43.4488 20.8359C43.5402 21.0587 43.5869 21.2973 43.5862 21.5381V41.7412C43.5872 42.2271 43.3955 42.6935 43.0532 43.0383C42.7109 43.3831 42.2458 43.5781 41.7599 43.5806L27.1349 43.605Z" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </symbol>
+    <symbol id="navbar-community_icon" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg"> <g clip-path="url(#clip0)"> <path d="M12.6562 10.5469C12.6562 9.85155 12.8624 9.17184 13.2487 8.5937C13.635 8.01556 14.1841 7.56495 14.8265 7.29886C15.4689 7.03277 16.1758 6.96315 16.8577 7.0988C17.5397 7.23445 18.1661 7.56929 18.6578 8.06095C19.1495 8.55262 19.4843 9.17905 19.6199 9.86101C19.7556 10.543 19.686 11.2499 19.4199 11.8922C19.1538 12.5346 18.7032 13.0837 18.1251 13.47C17.5469 13.8563 16.8672 14.0625 16.1719 14.0625" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> <path d="M16.1719 18.2812C16.0328 18.2812 15.8969 18.3225 15.7812 18.3997C15.6656 18.477 15.5755 18.5868 15.5223 18.7153C15.4691 18.8438 15.4551 18.9852 15.4823 19.1215C15.5094 19.2579 15.5764 19.3832 15.6747 19.4816C15.773 19.5799 15.8983 19.6469 16.0347 19.674C16.1711 19.7011 16.3125 19.6872 16.4409 19.634C16.5694 19.5808 16.6792 19.4906 16.7565 19.375C16.8338 19.2594 16.875 19.1234 16.875 18.9844C16.875 18.7979 16.8009 18.6191 16.6691 18.4872C16.5372 18.3553 16.3584 18.2812 16.1719 18.2812Z" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> <path d="M32.3438 4.21875V12.6562" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> <path d="M29.5312 1.40625C30.2772 1.40625 30.9925 1.70257 31.52 2.23001C32.0474 2.75746 32.3438 3.47283 32.3438 4.21875" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> <path d="M4.21875 1.40625H29.5312" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> <path d="M1.40625 4.21875C1.40625 3.47283 1.70257 2.75746 2.23001 2.23001C2.75746 1.70257 3.47283 1.40625 4.21875 1.40625" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> <path d="M1.40625 23.9062V4.21875" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> <path d="M4.21875 26.7188C3.47283 26.7187 2.75746 26.4224 2.23001 25.895C1.70257 25.3675 1.40625 24.6522 1.40625 23.9062" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> <path d="M9.84375 26.7188H4.21875" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> <path d="M9.84375 35.1562V26.7188" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> <path d="M15.4688 30.9375L9.84375 35.1562" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> <path d="M43.5938 35.1562H37.9688V43.5938L29.5312 35.1562H21.0938V18.2812H43.5938V35.1562Z" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> <path d="M32.3438 23.9062V29.5312" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g> <defs> <clipPath id="clip0"> <rect width="45" height="45" fill="white"/> </clipPath> </defs> </symbol>
+    <symbol id="navbar-search" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M15.7 13.3l-3.81-3.83A5.93 5.93 0 0 0 13 6c0-3.31-2.69-6-6-6S1 2.69 1 6s2.69 6 6 6c1.3 0 2.48-.41 3.47-1.11l3.83 3.81c.19.2.45.3.7.3.25 0 .52-.09.7-.3a.996.996 0 0 0 0-1.41v.01zM7 10.7c-2.59 0-4.7-2.11-4.7-4.7 0-2.59 2.11-4.7 4.7-4.7 2.59 0 4.7 2.11 4.7 4.7 0 2.59-2.11 4.7-4.7 4.7z"></path></symbol>
+    <symbol id="navbar-logomark" viewBox="65.2 173.5 180 180" fill="currentColor"><path d="M155.2,351.7v-34.2c36.2,0,64.3-35.9,50.4-74c-5.1-14.1-16.4-25.4-30.5-30.5c-38.1-13.8-74,14.2-74,50.4l0,0H67c0-57.7,55.8-102.7,116.3-83.8c26.4,8.3,47.5,29.3,55.7,55.7C257.9,295.9,213,351.7,155.2,351.7z"/> <polygon points="155.3,317.6 121.3,317.6 121.3,283.6 121.3,283.6 155.3,283.6 155.3,283.6"/> <polygon points="121.3,343.8 95.1,343.8 95.1,343.8 95.1,317.6 121.3,317.6"/> <path d="M95.1,317.6H73.2l0,0v-21.9l0,0h21.9l0,0V317.6z"/></symbol>
+    <symbol id="navbar-hubforgood" viewBox="6 6 30 30" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.5"><circle class="cls-3" cx="21" cy="21.03" r="8.92"/><path class="cls-3" d="M12.08,21a8.94,8.94,0,0,1,8.6-8.92"/><path class="cls-3" d="M29.92,21a9.18,9.18,0,0,1-2.61,6.37A9,9,0,0,1,20.75,30"/><path class="cls-3" d="M21,25.36S16.35,22.69,16.35,20a2.3,2.3,0,0,1,4.59,0h0a2.28,2.28,0,0,1,2.29-2.29A2.25,2.25,0,0,1,25.52,20C25.65,22.69,21,25.36,21,25.36Z"/><path class="cls-3" d="M7.43,20.84A13.49,13.49,0,0,1,20.68,7.46"/><path class="cls-3" d="M34.57,20.91a13.57,13.57,0,0,1-3.95,9.68,13.35,13.35,0,0,1-9.68,3.95"/><path class="cls-3" d="M20.87,34.6a13.42,13.42,0,0,1-9.49-4,13.64,13.64,0,0,1-4-9.81l4.65.13a8.94,8.94,0,0,0,2.61,6.31,9.09,9.09,0,0,0,6.06,2.61Z"/><path class="cls-3" d="M29.92,21a9.06,9.06,0,0,0-2.61-6.31,8.89,8.89,0,0,0-6.63-2.61V7.4a13.76,13.76,0,0,1,9.88,3.95,13.42,13.42,0,0,1,3.95,9.49Z"/></symbol>
+    <symbol id="navbar-write4do" viewBox="0 0 30 30" fill="none" stroke="currentColor"> <path d="M16.3063 17.67L11.6663 18.3338L12.3288 13.6925L24.2613 1.76002C24.7887 1.23257 25.5041 0.936249 26.25 0.936249C26.6194 0.936249 26.9851 1.009 27.3263 1.15034C27.6675 1.29168 27.9776 1.49885 28.2388 1.76002C28.4999 2.02118 28.7071 2.33123 28.8484 2.67246C28.9898 3.01369 29.0625 3.37942 29.0625 3.74877C29.0625 4.11811 28.9898 4.48384 28.8484 4.82507C28.7071 5.1663 28.4999 5.47635 28.2388 5.73752L16.3063 17.67Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> <path d="M22.935 3.08624L26.9125 7.06374"  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> <path d="M23.4375 17.8125V27.1875C23.4375 27.6848 23.24 28.1617 22.8883 28.5133C22.5367 28.865 22.0598 29.0625 21.5625 29.0625H2.8125C2.31522 29.0625 1.83831 28.865 1.48667 28.5133C1.13504 28.1617 0.9375 27.6848 0.9375 27.1875V8.4375C0.9375 7.94022 1.13504 7.46331 1.48667 7.11167C1.83831 6.76004 2.31522 6.5625 2.8125 6.5625H12.1875" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </symbol>
+    <symbol id="navbar-hacktoberfest" viewBox="0 0 30 30" fill="none" stroke="currentColor"> <path d="M19.2063 24.9918L16.5714 22.3569V14.4854L13.986 17.0708V23.5755L12.5615 25L11.1371 23.5591V8.44175L10.7419 8.04652L8.93042 9.8662L8 8.94401L11.9358 5.00823L11.944 5.01647L12.1005 5.16468L13.9778 7.04199V13.8431L16.5632 11.2577V8.42528L15.2705 7.12433L17.3948 5L19.4286 7.03376V20.9572L20.4249 21.9535L21.6352 20.7431L22.5492 21.6571L19.2063 24.9918Z" fill="currentcolor"/> <rect x="0.75" y="0.75" width="28.5" height="28.5" rx="2.25" stroke-width="1.5" stroke="currentColor"/> </symbol>
+    <symbol id="navbar-build" viewBox="0 0 16 16" fill="none" stroke="currentColor"> <path d="M1.5 14.5C1.23478 14.5 0.98043 14.3946 0.792893 14.2071C0.605357 14.0196 0.5 13.7652 0.5 13.5V2.57667C0.500879 2.29139 0.614596 2.01804 0.81632 1.81632C1.01804 1.6146 1.29139 1.50088 1.57667 1.5H14.4287C14.7125 1.50088 14.9845 1.61403 15.1852 1.81476C15.386 2.01548 15.4991 2.28747 15.5 2.57133V13.4233C15.4991 13.7086 15.3854 13.982 15.1837 14.1837C14.982 14.3854 14.7086 14.4991 14.4233 14.5H1.5Z" stroke-linecap="round" stroke-linejoin="round"/> <path d="M15.5 4.5H0.5" stroke-linecap="round" stroke-linejoin="round"/> <path d="M11 7.5L13 9.5L11 11.5" stroke-linecap="round" stroke-linejoin="round"/> <path d="M5 7.5L3 9.5L5 11.5" stroke-linecap="round" stroke-linejoin="round"/> <path d="M9 7.5L7 11.5" stroke-linecap="round" stroke-linejoin="round"/> </symbol>
+  </svg>
+</div>
+
+<nav class="navbar" role="navigation" aria-label="Navigation" data-js="global-navbar">
+  <ul role="menubar" class="utility">
+    <li role="banner" data-flex="grow" data-show="always" data-js="global-navbar-banner">
+    </li>
+    <li role="menuitem">
+      <a href="/products/">Products</a>
+    </li>
+    <li role="menuitem">
+      <a href="/pricing/">Pricing</a>
+    </li>
+    <li role="menuitem" aria-haspopup="true" tabindex="0">
+      <span class="expander">Docs</span>
+      <div role="menuitem" class="mini" aria-expanded="false">
+        <ul role="menu">
+          <li role="menuitem">
+            <a href="/docs/">Product Docs</a>
+          </li>
+          <li role="menuitem">
+            <a href="https://developers.digitalocean.com/documentation/">API Docs</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+      <li role="menuitem" aria-haspopup="true" tabindex="0">
+      <span class="expander">Sign in</span>
+        <div role="menuitem" class="mini" aria-expanded="false">
+          <header>Sign in to</header>
+          <ul role="menu">
+            <li role="menuitem">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <use xlink:href="#navbar-community_icon"></use>
+              </svg>
+              <a id="log-in" href="/community/auth/digitalocean">Community</a>
+            </li>
+            <li role="menuitem">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <use xlink:href="#navbar-control_panel_icon"></use>
+              </svg>
+              <a href="https://cloud.digitalocean.com/registrations/new">Control Panel</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+  </ul>
+
+  <ul role="menubar" class="primary">
+    <li role="menuitem" data-show="always" class="logo-square">
+      <a href="https://www.digitalocean.com/">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" shape-rendering="auto">
+          <use xlink:href="#navbar-logomark"></use>
+        </svg>
+      </a>
+    </li>
+    <li role="menuitem" data-show="always">
+      <a title="DigitalOcean Community Home" class="home" href="/community">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="120px" height="24px"
+             shape-rendering="auto">
+          <use xlink:href="#navbar-community_logo"></use>
+        </svg>
+</a>    </li>
+    <li role="menuitem">
+      <a data-activatable="true" href="/community/tutorials">Tutorials</a>
+    </li>
+    <li role="menuitem">
+      <a data-activatable="true" href="/community/questions">Questions</a>
+    </li>
+    <li role="menuitem" aria-haspopup="true" class="mega_parent" tabindex="0">
+      <span class="expander">Get Involved</span>
+      <div role="menuitem" class="mega" aria-expanded="false">
+        <div class="section column">
+          <header>Participate</header>
+          <ul role="menu">
+            <li role="menuitem">
+              <a href="https://www.digitalocean.com/community/pages/hub-for-good" class="with_image">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <use xlink:href="#navbar-hubforgood"></use>
+                </svg>
+                <p>
+                  <strong>Hub for Good</strong>
+                  Supporting each other to make an impact
+                </p>
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="with_image" href="/community/pages/write-for-digitalocean">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <use xlink:href="#navbar-write4do"></use>
+                </svg>
+                <p>
+                  <strong>Write for DigitalOcean</strong>
+                  You get paid, we donate to tech non-profits.
+                </p>
+</a>            </li>
+            <li role="menuitem">
+              <a href="https://hacktoberfest.digitalocean.com" class="with_image">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <use xlink:href="#navbar-hacktoberfest"></use>
+                </svg>
+                <p>
+                  <strong>Hacktoberfest</strong>
+                  Contribute to Open Source
+                </p>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="section column">
+          <header>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <use xlink:href="#navbar-build"></use>
+            </svg>
+            Build with DigitalOcean
+          </header>
+          <ul role="menu" class="indent">
+            <li role="menuitem">
+              <a title="Community-built tools and integrations that use the DigitalOcean API" href="/community/tools">Community Tools and Integrations</a>
+            </li>
+            <li role="menuitem">
+              <a href="https://www.digitalocean.com/hatch/" title="Build your startup on DigitalOcean.">
+                Hatch Startup Program
+              </a>
+            </li>
+            <li role="menuitem">
+              <a href="https://marketplace.digitalocean.com/vendors/"
+                 title="List your open source One-Click Application in the DigitalOcean Marketplace">
+                Marketplace Partner Program
+              </a>
+            </li>
+            <li role="menuitem">
+              <a href="https://www.digitalocean.com/partners/solutions-partners/"
+                 title="Easily deploy & modernize your clients’ infrastructures with the Solutions Partner Program">
+                Solutions Partner Program
+              </a>
+            </li>
+            <li role="menuitem">
+              <a href="https://www.digitalocean.com/droplets-for-demos/"
+                 title="DigitalOcean credits to fund research for conference and meetup presentations">
+                Presentation Grants
+              </a>
+            </li>
+            <li role="menuitem">
+              <a href="https://github.com/digitalocean"
+                 title="View all the open-source projects that DigitalOcean have on GitHub">
+                DigitalOcean on GitHub
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </li>
+    <li role="menuitem" data-show="mobile" data-flex="grow" class="right">
+      <a href="javascript:void(0);" data-toggle="dialog" data-target=".mobile_nav">
+        <span class="icon-menu-thin"></span>
+      </a>
+    </li>
+    <li role="menuitem" data-flex="grow">
+      <button id="q" class="search_button">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" shape-rendering="auto"
+               width="14px" height="14px">
+            <use xlink:href="#navbar-search"></use>
+          </svg>
+          Search DigitalOcean
+          <kbd>/</kbd>
+      </button>
+    </li>
+    <li role="menuitem">
+      <a class="button blue-button small-button" href="/community/auth/digitalocean?display=sessionless+register+button">Sign Up</a>
+    </li>
+  </ul>
+</nav>
+
+<header>
+  <div class="legacy-header ">
+    <div class="flash-container">
+      
+    </div>
+
+    <div class="wrapper">
+      
+    </div>
+  </div>
+</header>
+
+
+
+      
+
+      <div class='wrapper layout-wrapper'>
+
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  <div class="section-content section-content-growable content Tutorial-content">
+    
+
+    <div class="container tutorial-header">
+      <span class="featured-items-right-bar-container">
+</span>
+
+
+      
+      <h4 class="eyebrow">Tutorial</h4>
+      <h1 class="content-title Tutorial-header">Установка WordPress с помощью Docker Compose</h1>
+
+      <span class="meta-section tags">
+  <a class="tag" href="/community/tags/nginx">Nginx</a><a class="tag" href="/community/tags/mysql">MySQL</a><a class="tag" href="/community/tags/wordpress">WordPress</a><a class="tag" href="/community/tags/docker">Docker</a><a class="tag" href="/community/tags/let-s-encrypt">Let&#39;s Encrypt</a><a class="tag" href="/community/tags/ubuntu-18-04">Ubuntu 18.04</a>
+</span>
+
+
+      <div class="tutorial-authors-translations">
+        <div class="tutorial-authors">
+          <div class="component-collaborators-container">
+  <ul class="component-collaborators-content">
+        <li class="collaborator-byline-avatar">
+          <a href="/community/users/katjuell">
+            <div class="mod-avatar mod-avatar-large"><img class="avatar avatar-large" src="https://community-cdn-digitalocean-com.global.ssl.fastly.net/variants/qJJ3Wdh1GNd4Ugbxrbv7w1tA/6a540d0de9b44df9962f62205489ba6e2a5beab748fa47e816b60597a256ba9b" /><span class="mod-star" title="MOD" data-toggle="tooltip" data-container="body"><span class="mod-star-icon"></span></span></div>
+</a>        </li>
+
+    <li class="collaborators-byline-data">
+        <p class="names">By <a href="/community/users/katjuell">Kathleen Juell</a></p>
+
+      <span class="meta-section date-views">
+  <span class="meta-section timestamp"><span class="tutorial-date-text">Posted</span><span class="tutorial-date">January 21, 2020</span></span>
+</span>
+
+    </li>
+  </ul>
+</div>
+
+        </div>
+
+          <select name="translation_language" id="translation_language" autocomplete="off" class="large-chosen-dropdown language-dropdown"><option value="/community/tutorials/how-to-install-wordpress-with-docker-compose">English</option>
+<option value="/community/tutorials/how-to-install-wordpress-with-docker-compose-es">Español</option>
+<option value="/community/tutorials/how-to-install-wordpress-with-docker-compose-pt">Português</option>
+<option selected="selected" value="/community/tutorials/how-to-install-wordpress-with-docker-compose-ru">Русский</option></select>
+      </div>
+    </div>
+
+    
+
+
+
+<div class="content-body tutorial-content" data-growable-markdown>
+  
+  <h3 id="Введение">Введение</h3>
+
+<p><a href="https://wordpress.org/">WordPress</a> — бесплатная <a href="https://www.digitalocean.com/community/tutorials/digitalocean-community-glossary#content-management-system">система управления контентом (CMS)</a> с открытым исходным кодом, которая опирается на базу данных <a href="https://www.mysql.com/">MySQL</a> и обрабатывает запросы с помощью <a href="https://www.php.net/">PHP</a>. Благодаря огромному количеству плагинов и системе шаблонов, а также тому факту, что большая часть административных функций может производиться через веб-интерфейс, WordPress завоевала популярность среди создателей самых разных сайтов, от блогов и страниц с описанием продукта и до сайтов электронной торговли.</p>
+
+<p>Для запуска WordPress, как правило, требуется установка стека <a href="https://www.digitalocean.com/community/tutorials/digitalocean-community-glossary#lamp">LAMP</a> (Linux, Apache, MySQL и PHP) или <a href="https://www.digitalocean.com/community/tutorials/digitalocean-community-glossary#lemp">LEMP</a> (Linux, Nginx, MySQL и PHP), что может занять много времени. С помощью таких инструментов, как <a href="https://www.docker.com/">Docker</a> и <a href="https://docs.docker.com/compose/">Docker Compose</a>, вы можете упростить процесс настройки предпочитаемого стека и установки WordPress. Вместо установки отдельных компонентов вручную, вы можете использовать <em>образы</em>, которые обладают такими стандартными элементами, как библиотеки, файлы конфигурации и переменные среды, и запускать эти образы в <em>контейнерах</em>, т. е. изолированных процессах, запущенных в общей операционной системе. Кроме того, используя Compose, вы можете координировать действия нескольких контейнеров, например приложения и базы данных, которые будут коммуницировать друг с другом.</p>
+
+<p>В этом обучающем руководстве вы будете выполнять установку WordPress с несколькими контейнерами. Ваши контейнеры будут включать базу данных MySQL, веб-сервер Nginx и непосредственно WordPress. Также вы должны будете обеспечить защиту установки, получая с помощью <a href="https://letsencrypt.org/">Let&rsquo;s Encrypt​​​​​​</a> сертификаты TLS/SSL для доменов, которые вы хотите привязать к вашему сайту. Наконец, вы настроите задание <a href="https://www.digitalocean.com/community/tutorials/how-to-schedule-routine-tasks-with-cron-and-anacron-on-a-vps"><code>cron</code></a> для обновления ваших сертификатов, чтобы ваш домен оставался защищенным.</p>
+
+<h2 id="Предварительные-требования">Предварительные требования</h2>
+
+<p>Для данного обучающего руководства вам потребуется следующее:</p>
+
+<ul>
+<li>Сервер на базе Ubuntu 18.04, а также пользователь без прав root с привилегиями <code>sudo</code> и активный брандмауэр. Дополнительную информацию о настройке этих параметров см. в <a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04">руководстве по первоначальной настройке сервера</a>.</li>
+<li>Система Docker, установленная на сервере в соответствии с шагами 1 и 2 руководства <a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04">Установка и использование Docker в Ubuntu 18.04</a>.</li>
+<li>Docker Compose, установленный на сервере, в соответствии с шагом 1 руководства <a href="https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-18-04">Установка Docker Compose в Ubuntu 18.04</a>.</li>
+<li>Зарегистрированное доменное имя. В этом обучающем руководстве мы будем использовать <strong>example.com</strong>. Вы можете получить бесплатный домен на <a href="http://www.freenom.com/en/index.html">Freenom</a> или зарегистрировать доменное имя по вашему выбору.</li>
+<li><p>На вашем сервере должны быть настроены обе нижеследующие записи DNS. Вы можете воспользоваться <a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-digitalocean-dns">введением в работу с DigitalOcean DNS</a>, чтобы получить подробную информацию о добавлении доменов в учетную запись DigitalOcean, если вы используете этот способ:</p>
+
+<ul>
+<li>Запись A, где <code><span class="highlight">example.com</span></code> указывает на публичный IP-адрес вашего сервера.</li>
+<li>Запись A, где <code>www.<span class="highlight">example.com</span></code> указывает на публичный IP-адрес вашего сервера.</li>
+</ul></li>
+</ul>
+
+<h2 id="Шаг-1-—-Настройка-конфигурации-веб-сервера">Шаг 1 — Настройка конфигурации веб-сервера</h2>
+
+<p>Перед запуском контейнеров прежде всего необходимо настроить конфигурацию нашего веб-сервера Nginx. Наш файл конфигурации будет включать несколько специфических для Wordpress блоков расположения наряду с блоками расположения, которые будут направлять передаваемые Let&rsquo;s Encrypt запросы верификации клиенту Certbot для автоматизированного обновления сертификатов.</p>
+
+<p>Во-первых, создайте директорию проекта для настройки WordPress с именем <code><span class="highlight">wordpress</span></code> и перейдите в эту директорию:</p>
+<pre class="code-pre command prefixed"><code><ul class="prefixed"><li class="line" data-prefix="$">mkdir <span class="highlight">wordpress</span> &amp;&amp; cd <span class="highlight">wordpress</span>
+</li></ul></code></pre>
+<p>Затем создайте директорию для файла конфигурации:</p>
+<pre class="code-pre command prefixed"><code><ul class="prefixed"><li class="line" data-prefix="$">mkdir nginx-conf
+</li></ul></code></pre>
+<p>Откройте файл с помощью <code>nano</code> или своего любимого редактора:</p>
+<pre class="code-pre command prefixed"><code><ul class="prefixed"><li class="line" data-prefix="$">nano nginx-conf/nginx.conf
+</li></ul></code></pre>
+<p>В этом файле мы добавим серверный блок с директивами для имени нашего сервера и корневой директории документов, а также блок расположения для направления запросов сертификатов от клиента Certbot, обработки PHP и запросов статичных активов.</p>
+
+<p>Добавьте в файл следующий код. Обязательно замените <code><span class="highlight">example.com</span></code> на ваше доменное имя.</p>
+<div class="code-label " title="~/wordpress/nginx-conf/nginx.conf">~/wordpress/nginx-conf/nginx.conf</div><pre class="code-pre "><code>server {
+        listen 80;
+        listen [::]:80;
+
+        server_name <span class="highlight">example.com</span> www.<span class="highlight">example.com</span>;
+
+        index <span class="highlight">index.php</span> index.html index.htm;
+
+        root /var/www/html;
+
+        location ~ /.well-known/acme-challenge {
+                allow all;
+                root /var/www/html;
+        }
+
+        location / {
+                try_files $uri $uri/ /index.php$is_args$args;
+        }
+
+        location ~ \.php$ {
+                try_files $uri =404;
+                fastcgi_split_path_info ^(.+\.php)(/.+)$;
+                fastcgi_pass <span class="highlight">wordpress</span>:9000;
+                fastcgi_index index.php;
+                include fastcgi_params;
+                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                fastcgi_param PATH_INFO $fastcgi_path_info;
+        }
+
+        location ~ /\.ht {
+                deny all;
+        }
+
+        location = /favicon.ico {
+                log_not_found off; access_log off;
+        }
+        location = /robots.txt {
+                log_not_found off; access_log off; allow all;
+        }
+        location ~* \.(css|gif|ico|jpeg|jpg|js|png)$ {
+                expires max;
+                log_not_found off;
+        }
+}
+</code></pre>
+<p>Наш серверный блок содержит следующую информацию:</p>
+
+<p><strong>Директивы:</strong></p>
+
+<ul>
+<li><code>listen</code>: данный элемент просит Nginx прослушивать порт <code>80</code>, что позволит нам использовать плагин <a href="https://certbot.eff.org/docs/using.html#webroot">webroot</a> Certbot для наших запросов сертификатов. Обратите внимание, что мы пока <em>не</em> будем включать порт <code>443</code>, мы обновим нашу конфигурацию и добавим SSL после успешного получения наших сертификатов.</li>
+<li><code>server_name</code>: этот элемент определяет имя вашего сервера и серверный блок, которые должны использоваться для запросов к вашему серверу. Обязательно замените <code><span class="highlight">example.com</span></code> в этой строке на ваше собственное доменное имя.</li>
+<li><code>index</code>: директива <code>index</code> определяет файлы, которые будут использоваться в качестве индексов при обработке запросов к вашему серверу. Здесь мы изменили порядок приоритета по умолчанию, поставив <code>index.php</code> перед <code>index.html</code>, в результате чего Nginx будет давать приоритет файлам с именем <code>index.php</code> при наличии возможности.</li>
+<li><code>root</code>: наша директива <code>root</code> назначает имя корневой директории для запросов к нашему серверу. Эта директория, <code>/var/www/html</code>, <a href="https://github.com/docker-library/wordpress/blob/07958d19ed465fb7fe50626be740d88a2c2260a7/php7.2/fpm-alpine/Dockerfile#L53">создается в качестве точки монтирования</a> в момент сборки с помощью инструкций в <a href="https://github.com/docker-library/wordpress/blob/07958d19ed465fb7fe50626be740d88a2c2260a7/php7.2/fpm-alpine/Dockerfile">Dockerfile WordPress</a>. Эти инструкции Dockerfile также гарантируют, что файлы релиза WordPress монтируются в этот том.</li>
+</ul>
+
+<p><strong>Блоки расположения:</strong></p>
+
+<ul>
+<li><code>location ~ /.well-known/acme-challenge</code>: этот блок расположения будет обрабатывать запросы в директории <code>.well-known</code>, где Certbot будет размещать временный файл для подтверждения того, что DNS для нашего домена будет работать с нашим сервером. Настроив данную конфигурацию, мы сможем использовать плагин webroot Certbot для получения сертификатов для нашего домена.</li>
+<li><code>location /</code>: в этом блоке расположения мы будем использовать директиву <code>try_files</code> для проверки файлов, соответствующих отдельным запросам URI. Вместо того, чтобы возвращать по умолчанию статус 404 <code>не найдено</code>, мы будем передавать контроль файлу <code>index.php</code> Wordpress с аргументами запроса.</li>
+<li><code>location ~\.php$</code>: этот блок расположения будет обрабатывать PHP-запросы и проксировать эти запросы в наш контейнер <code>wordpress</code>. Поскольку наш образ WordPress Docker будет опираться на образ <a href="https://github.com/docker-library/php/blob/e63194a0006848edb13b7eff5a7f9d790d679428/7.2/alpine3.9/fpm/Dockerfile"><code>php:fpm</code></a>, мы также добавим параметры конфигурации, принадлежащие <a href="https://en.wikipedia.org/wiki/FastCGI">протоколу FastCGI</a>, в этот блок. Nginx требует наличия независимого процессора PHP для запросов PHP: в нашем случае эти запросы будут обрабатываться процессором <code>php-fpm</code>, который будет включать образ <code>php:fpm</code>. Кроме того, этот блок расположения содержит директивы FastCGI, переменные и опции, которые будут проксировать запросы для приложения WordPress, запущенного в нашем контейнере <code>wordpress</code>, задавать предпочитаемый индекс захваченного URI запроса, а также выполнять парсинг URI-запросов.</li>
+<li><code>location ~ /\.ht</code>: этот блок будет обрабатывать файлы <code>.htaccess</code>, поскольку Nginx не будет обслуживать их. Директива <code>deny_all</code> гарантирует, что файлы <code>.htaccess</code> никогда не будут отображаться для пользователей.</li>
+<li><code>location = /favicon.ico</code>, <code>location = /robots.txt</code>: эти блоки гарантируют, что запросы для <code>/favicon.ico</code> и <code>/robots.txt</code> не будут регистрироваться.</li>
+<li><code>location ~*\ (css|gif|ico|jpeg|jpg|js|png)$</code>: этот блок отключает запись в журнал для запросов статичных активов и гарантирует, что эти активы будут иметь высокую кэшируемость, поскольку обычно их трудно обслуживать.</li>
+</ul>
+
+<p>Дополнительную информацию о проксировании FastCGI см. в статье <a href="https://www.digitalocean.com/community/tutorials/understanding-and-implementing-fastcgi-proxying-in-nginx">Понимание и реализация проксирования FastCGI в Nginx</a>. Информацию о серверных блоках и блоках расположения см. в статье <a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-server-and-location-block-selection-algorithms">Знакомство с сервером Nginx и алгоритмы выбора блоков расположения</a>.</p>
+
+<p>Сохраните и закройте файл после завершения редактирования. Если вы используете <code>nano</code>, нажмите <code>CTRL+X</code>, <code>Y</code>, затем <code>ENTER</code>.</p>
+
+<p>После настройки конфигурации Nginx вы можете перейти к созданию переменных среды для передачи в контейнеры приложения и базы данных во время исполнения.</p>
+
+<h2 id="Шаг-2-—-Настройка-переменных-среды">Шаг 2 — Настройка переменных среды</h2>
+
+<p>Контейнеры базы данных и приложения WordPress должны получить доступ к определенным переменным среды в момент выполнения для сохранения данных приложения и предоставления доступа к этим данным для вашего приложения. Эти переменные включают чувствительные и нечувствительные данные: к чувствительным данным относятся <strong>root</strong>-пароль MySQL и пароль и пользователь базы данных приложения, а к нечувствительным данным относится информация об имени и хосте базы данных приложения.</p>
+
+<p>Вместо того, чтобы задавать эти значения в нашем файле Docker Compose, основном файле, который содержит информацию о том, как наши контейнеры будут работать, мы можем задать чувствительные значения в файле <code>.env</code> и ограничить его распространение. Это не позволит скопировать эти значения в репозиторий нашего проекта и открыть их для общего доступа.</p>
+
+<p>В главной директории проекта <code>~/<span class="highlight">wordpress</span></code>, откройте файл с именем <code>.env</code>:</p>
+<pre class="code-pre command prefixed"><code><ul class="prefixed"><li class="line" data-prefix="$">nano .env
+</li></ul></code></pre>
+<p>Конфиденциальные значения, которые мы зададим в этом файле, включают пароль для нашего <strong>root</strong>-пользователя MySQL, имя пользователя и пароль, которые WordPress будет использовать для доступа к базе данных.</p>
+
+<p>Добавьте в файл следующие имена и значения переменных: Обязательно предоставьте здесь <strong>ваши собственные значения</strong> для каждой переменной:</p>
+<div class="code-label " title="~/wordpress/.env">~/wordpress/.env</div><pre class="code-pre "><code>MYSQL_ROOT_PASSWORD=<span class="highlight">your_root_password</span>
+MYSQL_USER=<span class="highlight">your_wordpress_database_user</span>
+MYSQL_PASSWORD=<span class="highlight">your_wordpress_database_password</span>
+</code></pre>
+<p>Мы включили пароль для административной учетной записи <strong>root</strong>, а также предпочитаемые имя пользователя и пароль для нашей базы данных приложения.</p>
+
+<p>Сохраните и закройте файл после завершения редактирования.</p>
+
+<p>Поскольку ваш файл <code>.env</code> содержит чувствительную информацию, вы можете убедиться, что в файлы <code>.gitignore</code> и <code>.dockerignore</code> вашего проекта включены инструкции, указывающие <a href="https://www.digitalocean.com/community/tutorials/how-to-use-git-a-reference-guide">Git</a> и <strong>Docker</strong>, какие файлы не копировать в ваши репозитории Git и образы Docker.</p>
+
+<p>Если вы планируете использовать Git для контроля версий, <a href="https://www.digitalocean.com/community/tutorials/how-to-use-git-a-reference-guide#set-up-and-initialization">инициализируйте текущую рабочую директорию в качестве репозитория</a> с помощью <code>git init</code>:</p>
+<pre class="code-pre command prefixed"><code><ul class="prefixed"><li class="line" data-prefix="$">git init
+</li></ul></code></pre>
+<p>Затем откройте файл <code>.gitignore</code>:</p>
+<pre class="code-pre command prefixed"><code><ul class="prefixed"><li class="line" data-prefix="$">nano .gitignore
+</li></ul></code></pre>
+<p>Добавьте <code>.env</code> в файл:</p>
+<div class="code-label " title="~/wordpress/.gitignore">~/wordpress/.gitignore</div><pre class="code-pre "><code>.env
+</code></pre>
+<p>Сохраните и закройте файл после завершения редактирования.</p>
+
+<p>Также в качестве дополнительной меры предосторожности рекомендуется добавить <code>.env</code> в файл <code>.dockerignore</code>, чтобы он не потерялся в ваших контейнерах, когда вы используете эту директорию в качестве контекста для сборки.</p>
+
+<p>Откройте файл:</p>
+<pre class="code-pre command prefixed"><code><ul class="prefixed"><li class="line" data-prefix="$">nano .dockerignore
+</li></ul></code></pre>
+<p>Добавьте <code>.env</code> в файл:</p>
+<div class="code-label " title="~/wordpress/.dockerignore">~/wordpress/.dockerignore</div><pre class="code-pre "><code>.env
+</code></pre>
+<p>Ниже вы можете дополнительно добавить файлы и директории, связанные с разработкой вашего приложения:</p>
+<div class="code-label " title="~/wordpress/.dockerignore">~/wordpress/.dockerignore</div><pre class="code-pre "><code>.env
+.git
+docker-compose.yml
+.dockerignore
+</code></pre>
+<p>Сохраните файл и закройте его после завершения.</p>
+
+<p>Теперь, когда все чувствительные данные на месте, вы можете перейти к определению ваших служб в файле <code>docker-compose.yml</code>.</p>
+
+<h2 id="Шаг-3-—-Определение-служб-с-помощью-docker-compose">Шаг 3 — Определение служб с помощью Docker Compose</h2>
+
+<p>Ваш файл <code>docker-compose.yml</code> будет содержать определения службы для вашей настройки. <em>Служба</em> в Compose — это запущенный контейнер, а определения службы содержат информацию о том, как каждый контейнер будет работать.</p>
+
+<p>Используя Compose, вы можете определить различные службы для запуска приложений с несколькими контейнерами, поскольку Compose позволяет привязать эти службы к общим сетям и томам. Это будет полезно для нашей текущей настройки, поскольку мы создадим различные контейнеры для нашей базы данных, приложения WordPress и веб-сервера. Также мы создадим контейнер для запуска <a href="https://certbot.eff.org/">клиента Certbot</a>, чтобы получить сертификаты для нашего веб-сервера.</p>
+
+<p>Откройте файл <code>docker-compose.yml</code>:</p>
+<pre class="code-pre command prefixed"><code><ul class="prefixed"><li class="line" data-prefix="$">nano docker-compose.yml
+</li></ul></code></pre>
+<p>Добавьте следующий код для определения версии файла Compose и базы данных <code>db</code>:</p>
+<div class="code-label " title="~/wordpress/docker-compose.yml">~/wordpress/docker-compose.yml</div><pre class="code-pre "><code>version: '3'
+
+services:
+  db:
+    image: mysql:<span class="highlight">8.0</span>
+    container_name: db
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - MYSQL_DATABASE=<span class="highlight">wordpress</span>
+    volumes:
+      - dbdata:/var/lib/mysql
+    command: '--default-authentication-plugin=mysql_native_password'
+    networks:
+      - app-network
+</code></pre>
+<p>Определение службы <code>db</code> включает следующие параметры:</p>
+
+<ul>
+<li><code>image</code>: данный элемент указывает Compose, какой образ будет загружаться для создания контейнера. Мы закрепим здесь <a href="https://github.com/docker-library/mysql/blob/130bd8e46a3da1adfc1732a08c70673e20aa5977/8.0/Dockerfile">образ <code>mysql:<span class="highlight">8.0</span></code></a>, чтобы избежать будущих конфликтов, так как образ <code>mysql:latest</code> продолжит обновляться. Дополнительную информацию о закреплении версии и предотвращении конфликтов зависимостей см. в документации Docker в разделе <a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/">Рекомендации по работе с Dockerfile</a>.</li>
+<li><code>container_name</code>: данный элемент указывает имя контейнера.</li>
+<li><code>restart</code>: данный параметр определяет политику перезапуска контейнера. По умолчанию установлено значение <code>no</code>, но мы задали значение, согласно которому контейнер будет перезапускаться, пока не будет остановлен вручную.</li>
+<li><code>env_file</code>: этот параметр указывает Compose, что мы хотим добавить переменные среды из файла с именем <code>.env</code>, расположенного в контексте сборки. В этом случае в качестве контекста сборки используется наша текущая директория.</li>
+<li><code>environment</code>: этот параметр позволяет добавить дополнительные переменные среды, не определенные в файле <code>.env</code>. Мы настроим переменную <code>MYSQL_DATABASE</code> со значением <code><span class="highlight">wordpress</span></code>, которая будет предоставлять имя нашей базы данных приложения. Поскольку эта информация не является чувствительной, мы можем включить ее напрямую в файл <code>docker-compose.yml</code>.</li>
+<li><code>volumes</code>: здесь мы монтируем именованный <a href="https://docs.docker.com/storage/volumes/">том</a> с названием <code>dbdata</code> в директорию <code>/var/lib/mysql</code> в контейнере. Это стандартная директория данных в большинстве дистрибутивов.</li>
+<li><code>command</code>: данный параметр указывает команду, которая будет переопределять используемое по умолчанию значение <a href="https://docs.docker.com/engine/reference/builder/#cmd">инструкции CMD</a> для образа. В нашем случае мы добавим параметр для стандартной <a href="https://dev.mysql.com/doc/refman/8.0/en/mysqld.html">команды <code>mysqld</code></a> образа Docker, которая запускает сервер MySQL в контейнере. Эта опция <code>--default-authentication-plugin=mysql_native_password</code> устанавливает для системной переменной <code>--default-authentication-plugin</code> значение <code>mysql_native_password</code>, которое указывает, какой механизм аутентификации должен управлять новыми запросами аутентификации для сервера. Поскольку PHP и наш образ WordPress <a href="https://github.com/docker-library/wordpress/issues/313">не будут поддерживать</a> <a href="https://mysqlserverteam.com/upgrading-to-mysql-8-0-default-authentication-plugin-considerations/">новое значение аутентификации MySQL по умолчанию</a>, мы должны внести изменения, чтобы выполнить аутентификацию пользователя базы данных приложения.</li>
+<li><code>networks</code>: данный параметр указывает, что служба приложения будет подключаться к сети <code>app-network</code>, которую мы определим внизу файла.</li>
+</ul>
+
+<p>Затем под определением службы <code>db</code> добавьте определение для вашей службы приложения <code>wordpress</code>:</p>
+<div class="code-label " title="~/wordpress/docker-compose.yml">~/wordpress/docker-compose.yml</div><pre class="code-pre "><code>...
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:<span class="highlight">5.1.1</span>-fpm-alpine
+    container_name: wordpress
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - WORDPRESS_DB_HOST=db:3306
+      - WORDPRESS_DB_USER=$MYSQL_USER
+      - WORDPRESS_DB_PASSWORD=$MYSQL_PASSWORD
+      - WORDPRESS_DB_NAME=<span class="highlight">wordpress</span>
+    volumes:
+      - wordpress:/var/www/html
+    networks:
+      - app-network
+</code></pre>
+<p>В этом определении службы мы называем наш контейнер и определяем политику перезапуска, как уже делали это для службы <code>db</code>. Также мы добавляем в этот контейнер ряд параметров:</p>
+
+<ul>
+<li><code>depends_on</code>: этот параметр гарантирует, что наши контейнеры будут запускаться в порядке зависимости, и контейнер  <code>wordpress</code> запускается после контейнера <code>db</code>. Наше приложение WordPress зависит от наличия базы данных приложения и пользователя, поэтому установка такого порядка зависимостей позволит выполнять запуск приложения корректно.</li>
+<li><code>image</code>: для этой настройки мы будем использовать <a href="https://github.com/docker-library/wordpress/blob/07958d19ed465fb7fe50626be740d88a2c2260a7/php7.2/fpm-alpine/Dockerfile">образ Wordpress <code><span class="highlight">5.11</span>-fpm-alpine</code></a>. Как  было показано в <a href="https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose#step-1-%E2%80%94-defining-the-web-server-configuration">шаге 1</a>, использование этого образа гарантирует, что наше приложение будет иметь процессор <code>php-fpm</code>, который требуется Nginx для обработки PHP. Это еще и образ <code>alpine</code>, полученный из <a href="https://alpinelinux.org/">проекта Alpine Linux</a>, который поможет снизить общий размер образа. Дополнительную информацию о преимуществах и недостатках использования образов <code>alpine</code>, а также о том, имеет ли это смысл в случае вашего приложения, см. в полном описании в разделе <strong>Варианты образа</strong> на <a href="https://hub.docker.com/_/wordpress">странице образа WordPress на Docker Hub</a>.</li>
+<li><code>env_file</code>: и снова мы укажем, что хотим загрузить значения из файла <code>.env</code>, поскольку там мы определили пользователя базы данных приложения и пароль.</li>
+<li><code>environment</code>: здесь мы будем использовать значения, определенные в файле <code>.env</code>, но мы привяжем их к именам переменных, которые требуются для образа WordPress: <code>WORDPRESS_DB_USER</code> и <code>WORDPRESS_DB_PASSWORD</code>. Также мы определяем значение <code>WORDPRESS_DB_HOST</code>, которое будет указывать сервер MySQL, который будет работать в контейнере <code>db</code>, доступный на используемом по умолчанию порту MySQL <code>3306</code>. Наше значение <code>WORDPRESS_DB_NAME</code> будет тем же, которое мы указали при определении службы MySQL для <code>MYSQL_DATABASE</code>: <code><span class="highlight">wordpress</span></code>.</li>
+<li><code>volumes</code>: мы монтируем том с именем <code>wordpress</code> на точку монтирования <code>/var/www/html</code>, <a href="https://github.com/docker-library/wordpress/blob/07958d19ed465fb7fe50626be740d88a2c2260a7/php7.2/fpm-alpine/Dockerfile#L53">созданную образом WordPress</a>. Использование тома с именем таким образом позволит разделить наш код приложения с другими контейнерами.</li>
+<li><code>networks</code>: мы добавляем контейнер <code>wordpress</code> в сеть <code>app-network</code>.</li>
+</ul>
+
+<p>Далее под определением службы приложения <code>wordpress</code> добавьте следующее определение для службы Nginx <code>webserver</code>:</p>
+<div class="code-label " title="~/wordpress/docker-compose.yml">~/wordpress/docker-compose.yml</div><pre class="code-pre "><code>...
+  webserver:
+    depends_on:
+      - wordpress
+    image: nginx:<span class="highlight">1.15.12</span>-alpine
+    container_name: webserver
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - wordpress:/var/www/html
+      - ./nginx-conf:/etc/nginx/conf.d
+      - certbot-etc:/etc/letsencrypt
+    networks:
+      - app-network
+</code></pre>
+<p>Мы снова присвоим имя нашему контейнеру и сделаем его зависимым от контейнера <code>wordpress</code> в отношении порядка запуска. Также мы используем образ <code>alpine</code> — <a href="https://github.com/nginxinc/docker-nginx/blob/e5123eea0d29c8d13df17d782f15679458ff899e/mainline/stretch/Dockerfile">образ Nginx <code><span class="highlight">1.15.12</span>-alpine</code></a>.</p>
+
+<p>Это определение службы также включает следующие параметры:</p>
+
+<ul>
+<li><code>ports</code>: этот параметр открывает порт <code>80</code>, чтобы активировать параметры конфигурации, определенные нами в файле <code>nginx.conf</code> в <a href="">шаге 1</a>.</li>
+<li><code>volumes</code>: здесь мы определяем комбинацию названных томов и <a href="https://docs.docker.com/storage/bind-mounts/">связанных монтируемых образов</a>:
+
+<ul>
+<li><code>wordpress:/var/www/html</code>: этот параметр будет монтировать код нашего приложения WordPress в директорию <code>/var/www/html</code>, директорию, которую мы задали в качестве <code>root</code>-директории в нашем серверном блоке Nginx.</li>
+<li><code>./nginx-conf:/etc/nginx/conf.d</code>: этот элемент будет монтировать директорию конфигурации Nginx на хост в соответствующую директорию в контейнере, гарантируя, что любые изменения, которые мы вносим в файлы на хосте, будут отражены в контейнере.</li>
+<li><code>certbot-etc:/etc/letsencrypt</code>: этот элемент будет монтировать соответствующие сертификаты и ключи Let&rsquo;s Encrypt для нашего домена в соответствующую директорию контейнера.</li>
+</ul></li>
+</ul>
+
+<p>Здесь мы снова добавили этот контейнер в сеть <code>app-network</code>.</p>
+
+<p>Наконец, под определением <code>webserver</code> добавьте последнее определение для службы <code>certbot</code>. Обязательно замените адрес электронной почты и доменные имена, перечисленные здесь, на ваши собственные:</p>
+<div class="code-label " title="~/wordpress/docker-compose.yml">~/wordpress/docker-compose.yml</div><pre class="code-pre "><code>  certbot:
+    depends_on:
+      - webserver
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - wordpress:/var/www/html
+    command: certonly --webroot --webroot-path=/var/www/html --email <span class="highlight">sammy@example.com</span> --agree-tos --no-eff-email --staging -d <span class="highlight">example.com</span> -d www.<span class="highlight">example.com</span>
+</code></pre>
+<p>Это определение попросит Compose извлекать <a href="https://hub.docker.com/r/certbot/certbot/">образ <code>certbot/certbot</code></a> из Docker Hub. Также оно использует имена томов для обмена ресурсами с контейнером Nginx, включая доменные сертификаты и ключ в <code>certbot-etc</code> и код приложения в <code>wordpress</code>.</p>
+
+<p>Мы использовали <code>depends_on</code>, чтобы указать, что контейнер <code>certbot</code> следует запускать только после запуска службы <code>webserver</code>.</p>
+
+<p>Также мы включили параметр <code>command</code>, указывающий субкоманду для запуска с используемой контейнером по умолчанию командой <code>certbot</code>. <a href="https://certbot.eff.org/docs/using.html#certbot-command-line-options">Субкоманда <code>certonly</code></a> будет получать сертификат со следующими параметрами:</p>
+
+<ul>
+<li><code>--webroot</code>: данный элемент говорит Certbot о необходимости использования плагина webroot для размещения файлов в папке webroot для аутентификации. Работа плагина основана на <a href="https://tools.ietf.org/html/draft-ietf-acme-acme-03#section-7.2">методе валидации HTTP-01</a>, который использует запрос HTTP, чтобы доказать, что Certbot может получить доступ к ресурсам с сервера, который отвечает на заданное доменное имя.</li>
+<li><code>--webroot-path</code>: данный элемент указывает путь директории webroot.</li>
+<li><code>--email</code>: предпочитаемый адрес электронной почты для регистрации и восстановления.</li>
+<li><code>--agree-tos</code>: данный элемент указывает, что вы принимаете <a href="https://letsencrypt.org/documents/LE-SA-v1.2-November-15-2017.pdf">Соглашение о подписке ACME</a>.</li>
+<li><code>--no-eff-email</code>: данный элемент указывает Certbot, что вы не хотите делиться адресом электронной почты с <a href="https://www.eff.org/">Electronic Frontier Foundation​​​</a> (EFF). Вы можете пропустить этот элемент.</li>
+<li><code>--staging</code>: данный элемент говорит Certbot, что вы хотите использовать промежуточную среду Let&rsquo;s Encrypt для получения тестовых сертификатов. При использовании этого параметра вы можете протестировать параметры конфигурации и избежать возможных пределов для запросов домена. Дополнительную информацию об этих предельных значениях см. в <a href="https://letsencrypt.org/docs/rate-limits/">документации по ограничениям скорости</a> Let&rsquo;s Encrypt.</li>
+<li><code>-d</code>: данный элемент позволяет указать доменные имена, которые вы хотите использовать для вашего запроса. В нашем случае мы включили <code><span class="highlight">example.com</span></code> и <code>www.<span class="highlight">example.com</span></code>. Обязательно замените эти данные на имя вашего домена.</li>
+</ul>
+
+<p>Под определением службы <code>certbot</code> добавьте определения сети и тома:</p>
+<div class="code-label " title="~/wordpress/docker-compose.yml">~/wordpress/docker-compose.yml</div><pre class="code-pre "><code>...
+volumes:
+  certbot-etc:
+  wordpress:
+  dbdata:
+
+networks:
+  app-network:
+    driver: bridge  
+</code></pre>
+<p>Наш ключ верхнего уровня <code>volumes</code> определяет тома <code>certbot-etc</code>, <code>wordpress</code> и <code>dbdata</code>. Когда Docker создает тома, содержимое тома сохраняется в директории файловой системы хоста, <code>/var/lib/docker/volumes/</code>, а данным процессом управляет Docker. После этого содержимое каждого тома монтируется из этой директории в любой контейнер, использующий том. Таким образом мы можем делиться кодом и данными между контейнерами.</p>
+
+<p>Создаваемая пользователем мостовая система <code>app-network</code> позволяет организовать коммуникацию между нашими контейнерами, поскольку они находятся на одном хосте демона Docker. Это позволяет организовать трафик и коммуникации внутри приложения, поскольку она открывает все порты между контейнерами в одной мостовой сети, скрывая все порты от внешнего мира. Таким образом, наши контейнеры <code>db</code>, <code>wordpress</code> и <code>webserver</code> могут взаимодействовать друг с другом, и нам нужно будет только открыть порт <code>80</code> для внешнего доступа к приложению.</p>
+
+<p>Итоговый файл <code>docker-compose.yml</code> будет выглядеть примерно так:</p>
+<div class="code-label " title="~/wordpress/docker-compose.yml">~/wordpress/docker-compose.yml</div><pre class="code-pre "><code>version: '3'
+
+services:
+  db:
+    image: mysql:<span class="highlight">8.0</span>
+    container_name: db
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - MYSQL_DATABASE=<span class="highlight">wordpress</span>
+    volumes:
+      - dbdata:/var/lib/mysql
+    command: '--default-authentication-plugin=mysql_native_password'
+    networks:
+      - app-network
+
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:<span class="highlight">5.1.1</span>-fpm-alpine
+    container_name: wordpress
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - WORDPRESS_DB_HOST=db:3306
+      - WORDPRESS_DB_USER=$MYSQL_USER
+      - WORDPRESS_DB_PASSWORD=$MYSQL_PASSWORD
+      - WORDPRESS_DB_NAME=<span class="highlight">wordpress</span>
+    volumes:
+      - wordpress:/var/www/html
+    networks:
+      - app-network
+
+  webserver:
+    depends_on:
+      - wordpress
+    image: nginx:<span class="highlight">1.15.12</span>-alpine
+    container_name: webserver
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - wordpress:/var/www/html
+      - ./nginx-conf:/etc/nginx/conf.d
+      - certbot-etc:/etc/letsencrypt
+    networks:
+      - app-network
+
+  certbot:
+    depends_on:
+      - webserver
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - wordpress:/var/www/html
+    command: certonly --webroot --webroot-path=/var/www/html --email <span class="highlight">sammy@example.com</span> --agree-tos --no-eff-email --staging -d <span class="highlight">example.com</span> -d www.<span class="highlight">example.com</span>
+
+volumes:
+  certbot-etc:
+  wordpress:
+  dbdata:
+
+networks:
+  app-network:
+    driver: bridge  
+</code></pre>
+<p>Сохраните и закройте файл после завершения редактирования.</p>
+
+<p>После добавления определений службы вы можете запустить контейнеры и протестировать запросы сертификата.</p>
+
+<h2 id="Шаг-4-—-Получение-сертификатов-ssl-и-учетных-данных">Шаг 4 — Получение сертификатов SSL и учетных данных</h2>
+
+<p>Мы можем запустить наши контейнеры с помощью команды <a href="https://docs.docker.com/compose/reference/up/"><code>docker-compose up</code></a>, которая будет создавать и запускать наши контейнеры и службы в указанном нами порядке. Если наши запросы доменов будут выполнены успешно, мы увидим корректный статус выхода в нашем выводе и нужные сертификаты, установленные в папке <code>/etc/letsencrypt/live</code> на контейнере <code>webserver</code>.</p>
+
+<p>Создайте контейнеры с помощью команды <a href="https://docs.docker.com/compose/reference/up/"><code>docker-compose up</code></a> и флага <code>-d</code>, которые будут запускать контейнеры <code>db​​​</code>, <code>wordpress</code> и <code>webserver</code> в фоновом режиме:</p>
+<pre class="code-pre command prefixed"><code><ul class="prefixed"><li class="line" data-prefix="$">docker-compose up -d
+</li></ul></code></pre>
+<p>Вы увидите вывод, подтверждающий, что ваши службы были успешно созданы:</p>
+<pre class="code-pre "><code><div class="secondary-code-label " title="Output">Output</div>Creating db ... done
+Creating wordpress ... done
+Creating webserver ... done
+Creating certbot   ... done
+</code></pre>
+<p>С помощью <a href="https://docs.docker.com/compose/reference/ps/"><code>docker-compose ps</code></a> проверьте статус ваших служб:</p>
+<pre class="code-pre command prefixed"><code><ul class="prefixed"><li class="line" data-prefix="$">docker-compose ps
+</li></ul></code></pre>
+<p>Если все будет выполнено успешно, ваши службы <code>db</code>, <code>wordpress</code> и <code>webserver</code> должны иметь статус <code>Up</code>, а работа контейнера <code>certbot</code> будет завершена с сообщением о статусе <code>0</code>:</p>
+<pre class="code-pre "><code><div class="secondary-code-label " title="Output">Output</div>  Name                 Command               State           Ports       
+-------------------------------------------------------------------------
+certbot     certbot certonly --webroot ...   Exit 0                      
+db          docker-entrypoint.sh --def ...   Up       3306/tcp, 33060/tcp
+webserver   nginx -g daemon off;             Up       0.0.0.0:80-&gt;80/tcp
+wordpress   docker-entrypoint.sh php-fpm     Up       9000/tcp           
+</code></pre>
+<p>Если вы увидите любое значение, кроме <code>Up</code> в столбце <code>State</code> для служб <code>db</code>, <code>wordpress</code> и <code>webserver</code>, или любое сообщение о статусе выхода, отличающееся от <code>0</code>, для контейнера <code>certbot</code>, проверьте журналы службы с помощью команды <a href="https://docs.docker.com/compose/reference/logs/"><code>docker-compose logs</code></a>:</p>
+<pre class="code-pre command prefixed"><code><ul class="prefixed"><li class="line" data-prefix="$">docker-compose logs <span class="highlight">service_name</span>
+</li></ul></code></pre>
+<p>Теперь вы можете убедиться, что ваши сертификаты были смонтированы в контейнер <code>webserver</code> с помощью команды <a href="https://docs.docker.com/compose/reference/exec/"><code>docker-compose exec</code></a>:</p>
+<pre class="code-pre command prefixed"><code><ul class="prefixed"><li class="line" data-prefix="$">docker-compose exec webserver ls -la /etc/letsencrypt/live
+</li></ul></code></pre>
+<p>Если запросы сертификата были выполнены успешно, вы увидите следующий результат:</p>
+<pre class="code-pre "><code><div class="secondary-code-label " title="Output">Output</div>total 16
+drwx------    3 root     root          4096 May 10 15:45 .
+drwxr-xr-x    9 root     root          4096 May 10 15:45 ..
+-rw-r--r--    1 root     root           740 May 10 15:45 README
+drwxr-xr-x    2 root     root          4096 May 10 15:45 <span class="highlight">example.com</span>
+</code></pre>
+<p>Теперь, когда вы убедились, что ваш запрос будет выполнен успешно, вы можете изменить определение службы <code>certbot</code> для удаления флага <code>--staging</code>.</p>
+
+<p>Откройте <code>docker-compose.yml</code>:</p>
+<pre class="code-pre command prefixed"><code><ul class="prefixed"><li class="line" data-prefix="$">nano docker-compose.yml
+</li></ul></code></pre>
+<p>Найдите раздел файла с определением службы <code>certbot</code> и замените флаг <code>--staging</code> в параметрах <code>command</code> на флаг <code>--force-renewal</code>, который будет указывать Certbot, что вы хотите запросить новый сертификат с теми же доменами, что и в уже существующем сертификате. Определение службы <code>certbot</code> должно будет выглядеть следующим образом:</p>
+<div class="code-label " title="~/wordpress/docker-compose.yml">~/wordpress/docker-compose.yml</div><pre class="code-pre "><code>...
+  certbot:
+    depends_on:
+      - webserver
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - wordpress:/var/www/html
+    command: certonly --webroot --webroot-path=/var/www/html --email <span class="highlight">sammy@example.com</span> --agree-tos --no-eff-email <span class="highlight">--force-renewal</span> -d <span class="highlight">example.com</span> -d www.<span class="highlight">example.com</span>
+...
+</code></pre>
+<p>Теперь вы можете запустить команду <code>docker-compose up</code> для воссоздания контейнера <code>certbot</code>. Также мы будем использовать параметр <code>--no-deps</code>, чтобы сообщить Compose о том, что можно пропустить запуск службы <code>webserver</code>, поскольку она уже запущена:</p>
+<pre class="code-pre command prefixed"><code><ul class="prefixed"><li class="line" data-prefix="$">docker-compose up --force-recreate --no-deps certbot
+</li></ul></code></pre>
+<p>Вы увидите вывод, указывающий, что запрос сертификата выполнен успешно:</p>
+<pre class="code-pre "><code><div class="secondary-code-label " title="Output">Output</div>Recreating certbot ... done
+Attaching to certbot
+certbot      | Saving debug log to /var/log/letsencrypt/letsencrypt.log
+certbot      | Plugins selected: Authenticator webroot, Installer None
+certbot      | Renewing an existing certificate
+certbot      | Performing the following challenges:
+certbot      | http-01 challenge for <span class="highlight">example.com</span>
+certbot      | http-01 challenge for www.<span class="highlight">example.com</span>
+certbot      | Using the webroot path /var/www/html for all unmatched domains.
+certbot      | Waiting for verification...
+certbot      | Cleaning up challenges
+certbot      | IMPORTANT NOTES:
+certbot      |  - Congratulations! Your certificate and chain have been saved at:
+certbot      |    /etc/letsencrypt/live/<span class="highlight">example.com</span>/fullchain.pem
+certbot      |    Your key file has been saved at:
+certbot      |    /etc/letsencrypt/live/<span class="highlight">example.com</span>/privkey.pem
+certbot      |    Your cert will expire on 2019-08-08. To obtain a new or tweaked
+certbot      |    version of this certificate in the future, simply run certbot
+certbot      |    again. To non-interactively renew *all* of your certificates, run
+certbot      |    "certbot renew"
+certbot      |  - Your account credentials have been saved in your Certbot
+certbot      |    configuration directory at /etc/letsencrypt. You should make a
+certbot      |    secure backup of this folder now. This configuration directory will
+certbot      |    also contain certificates and private keys obtained by Certbot so
+certbot      |    making regular backups of this folder is ideal.
+certbot      |  - If you like Certbot, please consider supporting our work by:
+certbot      |
+certbot      |    Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+certbot      |    Donating to EFF:                    https://eff.org/donate-le
+certbot      |
+certbot exited with code 0
+</code></pre>
+<p>После добавления ваших сертификатов вы можете перейти к изменению конфигурации Nginx для использования SSL.</p>
+
+<h2 id="Шаг-5-—-Изменение-конфигурации-веб-сервера-и-определения-службы">Шаг 5 — Изменение конфигурации веб-сервера и определения службы</h2>
+
+<p>Активация SSL в нашей конфигурации Nginx будет включать организацию перенаправления HTTP на HTTPS, указание расположения сертификата и ключей SSL и добавление параметров безопасности и заголовков.</p>
+
+<p>Поскольку вы будете воссоздавать службу <code>webserver</code> для включения этих нововведений, сейчас вы можете остановить ее работу:</p>
+<pre class="code-pre command prefixed"><code><ul class="prefixed"><li class="line" data-prefix="$">docker-compose stop webserver
+</li></ul></code></pre>
+<p>Прежде чем мы самостоятельно изменим файл конфигурации, нам нужно предварительно получить <a href="https://github.com/certbot/certbot/blob/master/certbot-nginx/certbot_nginx/tls_configs/options-ssl-nginx.conf">рекомендуемые параметры безопасности Nginx</a> от Certbot с помощью <code>curl</code>:</p>
+<pre class="code-pre command prefixed"><code><ul class="prefixed"><li class="line" data-prefix="$">curl -sSLo nginx-conf/options-ssl-nginx.conf https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/_internal/tls_configs/options-ssl-nginx.conf
+</li></ul></code></pre>
+<p>Данная команда будет сохранять эти параметры в файле с именем <code>options-ssl-nginx.conf</code>, расположенном в директории <code>nginx-conf</code>.</p>
+
+<p>Затем удалите ранее созданный файл конфигурации Nginx:</p>
+<pre class="code-pre command prefixed"><code><ul class="prefixed"><li class="line" data-prefix="$">rm nginx-conf/nginx.conf
+</li></ul></code></pre>
+<p>Откройте другую версию файла:</p>
+<pre class="code-pre command prefixed"><code><ul class="prefixed"><li class="line" data-prefix="$">nano nginx-conf/nginx.conf
+</li></ul></code></pre>
+<p>Добавьте следующий код в файл для перенаправления HTTP на HTTPS и добавления учетных данных, протоколов и заголовков безопасности SSL. Обязательно замените <code><span class="highlight">example.com</span>​​</code> на ваше доменное имя:</p>
+<div class="code-label " title="~/wordpress/nginx-conf/nginx.conf">~/wordpress/nginx-conf/nginx.conf</div><pre class="code-pre "><code>server {
+        listen 80;
+        listen [::]:80;
+
+        server_name <span class="highlight">example.com</span> www.<span class="highlight">example.com</span>;
+
+        location ~ /.well-known/acme-challenge {
+                allow all;
+                root /var/www/html;
+        }
+
+        location / {
+                rewrite ^ https://$host$request_uri? permanent;
+        }
+}
+
+server {
+        listen 443 ssl http2;
+        listen [::]:443 ssl http2;
+        server_name <span class="highlight">example.com</span> www.<span class="highlight">example.com</span>;
+
+        index index.php index.html index.htm;
+
+        root /var/www/html;
+
+        server_tokens off;
+
+        ssl_certificate /etc/letsencrypt/live/<span class="highlight">example.com</span>/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/<span class="highlight">example.com</span>/privkey.pem;
+
+        include /etc/nginx/conf.d/options-ssl-nginx.conf;
+
+        add_header X-Frame-Options "SAMEORIGIN" always;
+        add_header X-XSS-Protection "1; mode=block" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header Referrer-Policy "no-referrer-when-downgrade" always;
+        add_header Content-Security-Policy "default-src * data: 'unsafe-eval' 'unsafe-inline'" always;
+        # add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+        # enable strict transport security only if you understand the implications
+
+        location / {
+                try_files $uri $uri/ /index.php$is_args$args;
+        }
+
+        location ~ \.php$ {
+                try_files $uri =404;
+                fastcgi_split_path_info ^(.+\.php)(/.+)$;
+                fastcgi_pass <span class="highlight">wordpress</span>:9000;
+                fastcgi_index index.php;
+                include fastcgi_params;
+                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                fastcgi_param PATH_INFO $fastcgi_path_info;
+        }
+
+        location ~ /\.ht {
+                deny all;
+        }
+
+        location = /favicon.ico {
+                log_not_found off; access_log off;
+        }
+        location = /robots.txt {
+                log_not_found off; access_log off; allow all;
+        }
+        location ~* \.(css|gif|ico|jpeg|jpg|js|png)$ {
+                expires max;
+                log_not_found off;
+        }
+}
+</code></pre>
+<p>Блок сервера HTTP указывает webroot для запросов обновления Certbot в директории <code>.well-known/acme-challenge</code>. Также он содержит <a href="http://nginx.org/en/docs/http/ngx_http_rewrite_module.html#rewrite">директиву перезаписи</a>, которая перенаправляет запросы HTTP в корневую директорию HTTPS.</p>
+
+<p>Блок сервера HTTPS активирует <code>ssl</code> и <code>http2</code>. Дополнительную информацию о том, как выполняется итерация HTTP/2 в протоколах HTTP и какие преимущества это может дать для повышения производительности веб-сайта, см. во вводной части <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-with-http-2-support-on-ubuntu-18-04">руководства по настройке Nginx с поддержкой HTTP/2 в Ubuntu 18.04</a>.</p>
+
+<p>Этот блок также включает расположение наших сертификата SSL и ключа, а также рекомендованные параметры безопасности Certbot, которые мы сохранили в <code>nginx-conf/options-ssl-nginx.conf</code>.</p>
+
+<p>Кроме того, мы включили ряд заголовков безопасности, которые позволят нам получить оценки <strong>A</strong> на сайтах серверных тестов <a href="https://www.ssllabs.com/ssltest/">SSL Labs</a> и <a href="https://securityheaders.com/">Security Headers</a>. Эти заголовки включают <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options"><code>X-Frame-Options</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options"><code>X-Content-Type-Options</code></a>, <a href="https://scotthelme.co.uk/a-new-security-header-referrer-policy/"><code>Referrer Policy</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy"><code>Content-Security-Policy</code></a> и <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection"><code>X-XSS-Protection</code></a>. Заголовок <a href="https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security">HTTP <code>Strict Transport Security (Строгая безопасность передачи информации по протоколу HTTP)</code></a> закомментирован, активируйте этот элемент, только если вы понимаете возможные последствия и оценили его <a href="https://hstspreload.org/">«предварительно загруженный» функционал</a>.</p>
+
+<p>Наши директивы <code>root</code> и <code>index</code> также расположены в этом блоке, равно как и остальные блоки расположения WordPress, описанные в <a href="https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose#step-1-%E2%80%94-defining-the-web-server-configuration">шаге 1</a>.</p>
+
+<p>После завершения редактирования сохраните и закройте файл.</p>
+
+<p>Перед повторным созданием службы <code>webserver</code> вам потребуется добавить распределение порта <code>443</code> в определение службы <code>webserver</code>.</p>
+
+<p>Откройте ваш файл <code>docker-compose.yml​​​</code>:</p>
+<pre class="code-pre command prefixed"><code><ul class="prefixed"><li class="line" data-prefix="$">nano docker-compose.yml
+</li></ul></code></pre>
+<p>В определении службы <code>webserver</code> добавьте следующее распределение порта:</p>
+<div class="code-label " title="~/wordpress/docker-compose.yml">~/wordpress/docker-compose.yml</div><pre class="code-pre "><code>...
+  webserver:
+    depends_on:
+      - wordpress
+    image: nginx:<span class="highlight">1.15.12</span>-alpine
+    container_name: webserver
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - <span class="highlight">"443:443"</span>
+    volumes:
+      - wordpress:/var/www/html
+      - ./nginx-conf:/etc/nginx/conf.d
+      - certbot-etc:/etc/letsencrypt
+    networks:
+      - app-network
+</code></pre>
+<p>Файл <code>docker-compose.yml</code> будет выглядеть следующим образом после завершения настройки:</p>
+<div class="code-label " title="~/wordpress/docker-compose.yml">~/wordpress/docker-compose.yml</div><pre class="code-pre "><code>version: '3'
+
+services:
+  db:
+    image: mysql:<span class="highlight">8.0</span>
+    container_name: db
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - MYSQL_DATABASE=wordpress
+    volumes:
+      - dbdata:/var/lib/mysql
+    command: '--default-authentication-plugin=mysql_native_password'
+    networks:
+      - app-network
+
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:<span class="highlight">5.1.1</span>-fpm-alpine
+    container_name: wordpress
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - WORDPRESS_DB_HOST=db:3306
+      - WORDPRESS_DB_USER=$MYSQL_USER
+      - WORDPRESS_DB_PASSWORD=$MYSQL_PASSWORD
+      - WORDPRESS_DB_NAME=wordpress
+    volumes:
+      - wordpress:/var/www/html
+    networks:
+      - app-network
+
+  webserver:
+    depends_on:
+      - wordpress
+    image: nginx:<span class="highlight">1.15.12</span>-alpine
+    container_name: webserver
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - wordpress:/var/www/html
+      - ./nginx-conf:/etc/nginx/conf.d
+      - certbot-etc:/etc/letsencrypt
+    networks:
+      - app-network
+
+  certbot:
+    depends_on:
+      - webserver
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - wordpress:/var/www/html
+    command: certonly --webroot --webroot-path=/var/www/html --email <span class="highlight">sammy@example.com</span> --agree-tos --no-eff-email --force-renewal -d <span class="highlight">example.com</span> -d www.<span class="highlight">example.com</span>
+
+volumes:
+  certbot-etc:
+  wordpress:
+  dbdata:
+
+networks:
+  app-network:
+    driver: bridge  
+</code></pre>
+<p>Сохраните и закройте файл после завершения редактирования.</p>
+
+<p>Повторно создайте службу <code>webserver</code>:</p>
+<pre class="code-pre command prefixed"><code><ul class="prefixed"><li class="line" data-prefix="$">docker-compose up -d --force-recreate --no-deps webserver
+</li></ul></code></pre>
+<p>Проверьте ваши службы с помощью команды <code>docker-compose ps</code>:</p>
+<pre class="code-pre command prefixed"><code><ul class="prefixed"><li class="line" data-prefix="$">docker-compose ps
+</li></ul></code></pre>
+<p>Вы должны получить результат, указывающий, что ваши службы <code>db</code>, <code>wordpress</code>  и <code>webserver</code> запущены:</p>
+<pre class="code-pre "><code><div class="secondary-code-label " title="Output">Output</div>  Name                 Command               State                     Ports                  
+----------------------------------------------------------------------------------------------
+certbot     certbot certonly --webroot ...   Exit 0                                           
+db          docker-entrypoint.sh --def ...   Up       3306/tcp, 33060/tcp                     
+webserver   nginx -g daemon off;             Up       0.0.0.0:443-&gt;443/tcp, 0.0.0.0:80-&gt;80/tcp
+wordpress   docker-entrypoint.sh php-fpm     Up       9000/tcp    
+</code></pre>
+<p>После запуска ваших контейнеров вы можете завершить процесс установки WordPress через веб-интерфейс.</p>
+
+<h2 id="Шаг-6-—-Завершение-установки-через-веб-интерфейс">Шаг 6 — Завершение установки через веб-интерфейс</h2>
+
+<p>После запуска контейнеров мы можем завершить установку через веб-интерфейс WordPress.</p>
+
+<p>В браузере перейдите на домен вашего сервера. Не забудьте заменить здесь <code><span class="highlight">example.com</span></code>  на ваше доменное имя:</p>
+<pre class="code-pre "><code>https://<span class="highlight">example.com</span>
+</code></pre>
+<p>Выберите язык, который вы хотите использовать:</p>
+
+<p><img src="https://assets.digitalocean.com/articles/docker-wordpress/wp_language_select.png" alt="Средство выбора языка WordPress"></p>
+
+<p>После нажатия <strong>Continue</strong> (Продолжить) вы перейдете на главную страницу настройки, где вам нужно будет выбрать имя вашего сайта и пользователя. Рекомендуется выбрать запоминающееся имя пользователя (не просто «admin») и надежный пароль. Вы можете использовать пароль, который генерирует WordPress автоматически, или задать собственный пароль.</p>
+
+<p>Наконец, вам нужно будет ввести ваш адрес электронной почты и указать, хотите ли вы, чтобы движки поисковых систем могли индексировать ваш сайт:</p>
+
+<p><img src="https://assets.digitalocean.com/articles/docker-wordpress/wp_main_setup.png" alt="Главная страница настройки WordPress"></p>
+
+<p>После нажатия <strong>Install WordPress</strong> (Установить Wordpress) внизу страницы на экране появится запрос выполнения входа:</p>
+
+<p><img src="https://assets.digitalocean.com/articles/docker-wordpress/wp_login.png" alt="Экран входа WordPress"></p>
+
+<p>После входа вы получите доступ к панели управления WordPress:</p>
+
+<p><img src="https://assets.digitalocean.com/articles/docker-wordpress/wp_main_dash.png" alt="Панель управления WordPress"></p>
+
+<p>После завершения установки WordPress вы можете выполнить определенные действия, необходимые для гарантии того, что ваши сертификаты SSL будут обновляться автоматически.</p>
+
+<h2 id="Шаг-7-—-Обновление-сертификатов">Шаг 7 — Обновление сертификатов</h2>
+
+<p>Сертификаты Let&rsquo;s Encrypt действительны в течение 90 дней, поэтому вам нужно будет настроить автоматический процесс обновления, чтобы гарантировать, что сертификаты не окажутся просроченными. Один из способов — создание задания с помощью утилиты планирования <code>cron</code>. В нашем случае мы настроим задание для <code>cron</code> с помощью скрипта, который будет обновлять наши сертификаты и перезагружать конфигурацию Nginx.</p>
+
+<p>Откройте скрипт под названием <code>ssl_renew.sh</code>:</p>
+<pre class="code-pre command prefixed"><code><ul class="prefixed"><li class="line" data-prefix="$">nano ssl_renew.sh
+</li></ul></code></pre>
+<p>Добавьте следующий код в скрипт, чтобы обновить ваши сертификаты и перезагрузить конфигурацию веб-сервера. Не забудьте заменить приведенное в качестве примера имя пользователя своим именем пользователя без прав root:</p>
+<div class="code-label " title="~/wordpress/ssl_renew.sh">~/wordpress/ssl_renew.sh</div><pre class="code-pre "><code class="code-highlight language-bash">#!/bin/bash
+
+COMPOSE="/usr/local/bin/docker-compose --no-ansi"
+DOCKER="/usr/bin/docker"
+
+cd /home/<span class="highlight">sammy</span>/wordpress/
+$COMPOSE run certbot renew --dry-run &amp;&amp; $COMPOSE kill -s SIGHUP webserver
+$DOCKER system prune -af
+</code></pre>
+<p>Данный скрипт привязывает двоичный код <code>docker-compose</code> для переменной <code>COMPOSE</code> и задает параметр <code>--no-ansi</code>, который запускает команды <code>docker-compose</code> без <a href="https://vt100.net/docs/vt510-rm/chapter4.html">управляющих символов ANSI</a>. Затем он делает то же самое с двоичным файлом <code>docker</code>. В заключение он меняет директорию проекта на <code>~/wordpress</code> и запускает следующие команды <code>docker-compose</code>:</p>
+
+<ul>
+<li><code>docker-compose run</code>: данный параметр запускает контейнер <code>certbot</code> и переопределяет параметр <code>command</code>, указанный в определении службы <code>certbot</code>. Вместо использования субкоманды <code>certonly</code> мы используем здесь субкоманду <code>renew</code>, которая будет обновлять сертификаты, срок действия которых близок к окончанию. Мы включили параметр <code>--dry-run</code>, чтобы протестировать наш скрипт.</li>
+<li><a href="https://docs.docker.com/compose/reference/kill/"><code>docker-compose kill</code></a>: данный параметр отправляет сигнал <a href="https://en.wikipedia.org/wiki/SIGHUP"><code>SIGHUP</code></a> контейнеру <code>webserver</code> для перезагрузки конфигурации Nginx. Дополнительную информацию об использовании этого процесса для перезагрузки конфигурации Nginx см. в этой <a href="https://blog.docker.com/2015/04/tips-for-deploying-nginx-official-image-with-docker/">публикации блога Docker, посвященной развертыванию официального образа Nginx с помощью Docker</a>.</li>
+</ul>
+
+<p>После этого он выполняет команду <a href="https://docs.docker.com/engine/reference/commandline/system_prune/"><code>docker system prune</code></a> для удаления всех неиспользуемых контейнеров и образов.</p>
+
+<p>Закройте файл после завершения редактирования. Сделайте его исполняемым:</p>
+<pre class="code-pre command prefixed"><code><ul class="prefixed"><li class="line" data-prefix="$">chmod +x ssl_renew.sh
+</li></ul></code></pre>
+<p>Далее откройте <strong>root</strong>-файл <code>crontab</code> для запуска скрипта обновления с заданным интервалом:</p>
+<pre class="code-pre command prefixed"><code><ul class="prefixed"><li class="line" data-prefix="$">sudo crontab -e
+</li></ul></code></pre>
+<p>Если вы в первый раз редактируете этот файл, вам будет предложено выбрать редактор:</p>
+<pre class="code-pre "><code><div class="secondary-code-label " title="Output">Output</div>no crontab for root - using an empty one
+
+Select an editor.  To change later, run 'select-editor'.
+  1. /bin/nano        &lt;---- easiest
+  2. /usr/bin/vim.basic
+  3. /usr/bin/vim.tiny
+  4. /bin/ed
+
+Choose 1-4 [1]:
+...
+</code></pre>
+<p>Добавьте внизу файла следующую строку:</p>
+<div class="code-label " title="crontab">crontab</div><pre class="code-pre "><code>...
+*/5 * * * * /home/<span class="highlight">sammy</span>/wordpress/ssl_renew.sh &gt;&gt; /var/log/cron.log 2&gt;&amp;1
+</code></pre>
+<p>В результате будет установлен интервал в 5 минут для выполнения работы, и вы можете проверить, работает ли запрос обновления так, как предполагается. Также мы создали файл журнала, <code>cron.log</code>, чтобы записывать соответствующий вывод выполнения задания.</p>
+
+<p>Через 5 минут проверьте <code>cron.log</code>, чтобы убедиться, что запрос обновления выполнен успешно:</p>
+<pre class="code-pre command prefixed"><code><ul class="prefixed"><li class="line" data-prefix="$">tail -f /var/log/cron.log
+</li></ul></code></pre>
+<p>Вы должны увидеть вывод, подтверждающий успешное обновление:</p>
+<pre class="code-pre "><code><div class="secondary-code-label " title="Output">Output</div>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+** DRY RUN: simulating 'certbot renew' close to cert expiry
+**          (The test certificates below have not been saved.)
+
+Congratulations, all renewals succeeded. The following certs have been renewed:
+  /etc/letsencrypt/live/<span class="highlight">example.com</span>/fullchain.pem (success)
+** DRY RUN: simulating 'certbot renew' close to cert expiry
+**          (The test certificates above have not been saved.)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+</code></pre>
+<p>Теперь вы можете изменить файл <code>crontab</code> для настройки ежедневного интервала. Чтобы запускать скрипт каждый день в полдень, например, вы должны изменить последнюю строку файла, которая должна выглядеть следующим образом:</p>
+<div class="code-label " title="crontab">crontab</div><pre class="code-pre "><code>...
+0 12 * * * /home/<span class="highlight">sammy</span>/wordpress/ssl_renew.sh &gt;&gt; /var/log/cron.log 2&gt;&amp;1
+</code></pre>
+<p>Также вы можете изменить параметр <code>--dry-run</code> из скрипта <code>ssl_renew.sh</code>:</p>
+<div class="code-label " title="~/wordpress/ssl_renew.sh">~/wordpress/ssl_renew.sh</div><pre class="code-pre "><code class="code-highlight language-bash">#!/bin/bash
+
+COMPOSE="/usr/local/bin/docker-compose --no-ansi"
+DOCKER="/usr/bin/docker"
+
+cd /home/<span class="highlight">sammy</span>/wordpress/
+$COMPOSE run certbot renew &amp;&amp; $COMPOSE kill -s SIGHUP webserver
+$DOCKER system prune -af
+</code></pre>
+<p>Ваше задание <code>cron</code> гарантирует, что ваши сертификаты Let&rsquo;s Encrypt не окажутся устаревшими, обновляя их в случае истечения срока действия. Также вы можете <a href="https://www.digitalocean.com/community/tutorials/how-to-manage-logfiles-with-logrotate-on-ubuntu-16-04">настроить замену журнала с помощью утилиты Logrotate</a>, которая будет выполнять ротацию и сжатие файлов журнала.</p>
+
+<h2 id="Заключение">Заключение</h2>
+
+<p>В этом руководстве вы использовали Docker Compose для создания установки WordPress с веб-сервером Nginx. В рамках этого рабочего процесса вы получили сертификаты TLS/SSL для домена, который вы хотите подключить к вашему сайту WordPress. Кроме того, вы создали задание <code>cron</code> для обновления этих сертификатов при необходимости.</p>
+
+<p>В качестве дополнительных мер по повышению производительности сайта и создания запаса мощности, вы можете ознакомиться со следующими статьями, посвященными передаче и поддержке активов WordPress:</p>
+
+<ul>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-speed-up-wordpress-asset-delivery-using-digitalocean-spaces-cdn">Ускорение предоставления актива WordPress с помощью DigitalOcean Spaces CDN</a>.</li>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-back-up-a-wordpress-site-to-spaces">Резервирование сайта WordPress с помощью Spaces</a>.</li>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-store-wordpress-assets-on-digitalocean-spaces">Хранение активов WordPress в DigitalOcean Spaces</a>.</li>
+</ul>
+
+<p>Если вы заинтересованы в изучении контейнеризированного рабочего процесса с помощью Kubernetes, вы также можете ознакомиться со следующими материалами:</p>
+
+<ul>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-wordpress-with-mysql-on-kubernetes-using-helm">Настройка WordPress с MySQL с использованием Kubernetes и Helm</a>.</li>
+</ul>
+
+</div>
+
+  </div>
+
+  <div class="tutorial-footer">
+    <div class='tutorial-footer-details'>
+
+
+      <div class="tfb--container">
+  <div class="tfb--content">
+    <div class="tfb--undo tfb--hide">
+      <span class="icon icon-helpfulness-upvoted"></span>
+      <span class="tfb--question">Вы оценили этот перевод как полезный.</span>
+      <button name="button" type="submit" class="tfb--button-down tfb--thumb-down-js">Undo</button>
+    </div>
+
+    <div class="tfb--flagging-undo tfb--hide">
+      <span class="icon icon-helpfulness-flag"></span>
+      <span class="tfb--question">Вы отметили этот перевод флагом.</span>
+      <button name="button" type="submit" class="tfb--button-down tfb--unflagging-js">Undo</button>
+    </div>
+
+    <div class="tfb--do">
+      <span class="tfb--question">Вам понравилось качество перевода?</span>
+      <button name="button" type="submit" class="tfb--button tfb--thumb-up-js" data-translation-upvote-id="3454" data-translation-upvote-type="Tutorial" role="button" aria-label="Good">👍</button>
+      <button name="button" type="submit" class="tfb--button tfb--flagging-js" data-translation-flag-id="3454" data-translation-flag-type="Tutorial" role="button" aria-label="Bad">👎</button>
+    </div>
+  </div>
+</div>
+
+
+
+    <span class="helpfulness_and_share_box"></span>
+
+    <div class="component-collaborators-container-footer">
+  <div class="component-collaborators-content">
+    <div class="heading">About the authors</div>
+
+      <div class="author">
+          <a href="/community/users/katjuell">
+            <div class="avatar">
+              <div class="mod-avatar mod-avatar-large"><img class="avatar avatar-large" src="https://community-cdn-digitalocean-com.global.ssl.fastly.net/variants/qJJ3Wdh1GNd4Ugbxrbv7w1tA/6a540d0de9b44df9962f62205489ba6e2a5beab748fa47e816b60597a256ba9b" /><span class="mod-star" title="MOD" data-toggle="tooltip" data-container="body"><span class="mod-star-icon"></span></span></div>
+            </div>
+</a>          <div class="byline-info">
+            <div class="names">
+              <a href="/community/users/katjuell">
+                Kathleen Juell
+</a>            </div>
+              <p>Developer @digitalocean/community</p>
+          </div>
+      </div>
+
+      <div class="editor-translator">
+      </div>
+  </div>
+</div>
+
+
+</div>
+
+
+<div class='looking-for-an-answer'>
+  <div class='section-content'>
+    <h4>Still looking for an answer?</h4>
+    <div class="lfa--actions">
+      <a href="/community/questions/new?tags=Nginx%2CMySQL%2CWordPress%2CDocker%2CLet%27s+Encrypt%2CUbuntu+18.04"
+         class="lfa--action-box">
+        <span class="icon icon-look-for-answer-question"></span>
+        Ask a question
+      </a>
+      <a href="javascript:void(0)" class="lfa--action-box use-universal-search-js">
+        <span class="icon icon-look-for-answer-search-thin"></span>
+        Search for more help
+      </a>
+    </div>
+  </div>
+</div>
+
+
+  </div>
+
+  <div class="tabs">
+    <ul>
+      <li class="is-active" >
+        <a data-js="related-comments">Comments</a>
+      </li>
+      <li class="not-active">
+        <a data-js="follow-up-questions">Follow-Up Questions</a>
+      </li>
+    </ul>
+  </div>
+
+  <div id="comments-tab" style="display:block">
+    <div class="content-comments">
+</div>
+
+  </div>
+
+
+  <div class="creative-commons">
+  <a class="creative-commons-image" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img rel="license" alt="Creative Commons License" src="/assets/community/creativecommons-027bb7f065acf05ba3c0f84a040d2da641648afc81daa6ff5570301d4998bbb6.png" /></a>
+  <div class="license-text">This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+        <div class="clearfix"></div>
+      </div>
+
+      
+      <footer>
+        <section>
+            <a href="https://www.digitalocean.com/community/pages/write-for-digitalocean" class="panel_with_image">
+            <div class="photo_wrap">
+              <img class="photo" src="https://images.prismic.io/digitalocean/70910e9fdeb57be46aaa209ce8d9b4dc8e117fab_w4do2.jpg?auto=compress,format" alt="">
+            </div>
+            <span class="heading">Become a contributor</span>
+            <p>
+                You get paid; we donate to tech nonprofits.
+            </p>
+          </a>
+            <a href="https://www.digitalocean.com/community/newsletter" class="panel_with_image">
+            <div class="photo_wrap">
+              <img class="photo" src="https://images.prismic.io/digitalocean/ca12c951cc76f33037f3384bba9942545d160d82_iaan_illo.jpg?auto=compress,format" alt="">
+            </div>
+            <span class="heading">Get our biweekly newsletter</span>
+            <p>
+                Sign up for Infrastructure as a Newsletter.
+            </p>
+          </a>
+            <a href="https://www.digitalocean.com/community/pages/hub-for-good" class="panel_with_image">
+            <div class="photo_wrap">
+              <img class="photo" src="https://images.prismic.io/digitalocean/21ab4275-bcf3-42ac-b148-6f81d516ca1d_Twitter_graphic.png?auto=compress,format&amp;rect=0,61,1024,387&amp;w=370&amp;h=140" alt="">
+            </div>
+            <span class="heading">Hub for Good</span>
+            <p>
+                Working on improving health and education, reducing inequality, and spurring economic growth? We&#39;d like to help.
+            </p>
+          </a>
+      </section>
+      <section class="slim ">
+        <span class="heading">Featured on Community</span>
+            <a href="https://www.digitalocean.com/community/curriculums/kubernetes-for-full-stack-developers">Kubernetes Course</a>
+            <a href="https://www.digitalocean.com/community/tutorial_series/how-to-code-in-python-3">Learn Python 3</a>
+            <a href="https://www.digitalocean.com/community/tutorials/machine-learning-projects-python-a-digitalocean-ebook">Machine Learning in Python</a>
+            <a href="https://www.digitalocean.com/community/tutorials/how-to-write-your-first-program-in-go">Getting started with Go</a>
+            <a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-kubernetes">Intro to Kubernetes</a>
+        <hr>
+        <span class="heading">DigitalOcean Products</span>
+            <a href="https://www.digitalocean.com/products/droplets/">Virtual Machines</a>
+            <a href="https://www.digitalocean.com/products/managed-databases/">Managed Databases</a>
+            <a href="https://www.digitalocean.com/products/kubernetes/">Managed Kubernetes</a>
+            <a href="https://www.digitalocean.com/products/block-storage/">Block Storage</a>
+            <a href="https://www.digitalocean.com/products/spaces/">Object Storage</a>
+            <a href="https://marketplace.digitalocean.com/">Marketplace</a>
+            <a href="https://www.digitalocean.com/products/vpc/">VPC</a>
+            <a href="https://www.digitalocean.com/products/load-balancer/">Load Balancers</a>
+      </section>
+        <section class="product">
+          <a class="copy" href="/products">
+            <h3>Welcome to the developer cloud</h3>
+            <p>DigitalOcean makes it simple to launch in the cloud and scale up as you grow – whether you’re running one virtual machine or ten thousand.</p>
+            <span class="link_text">Learn More</span>
+          </a>
+          <div class="feature">
+            <a class="img_wrap" href="/products">
+              <img class="photo" src="https://images.prismic.io/digitalocean/95c1215227aa7f39f2bd23076de28feb969741c7_cloud.digitalocean.com_projects_63f9252f-652b-4645-9c0c-bee96f2bc503_resources_ic0ce81-2.png?auto=compress,format" alt="DigitalOcean Cloud Control Panel">
+            </a>
+          </div>
+        </section>
+        <section class="dark">
+          <div class="vlist grow">
+            <a href="https://www.digitalocean.com">
+              <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+                <title>DigitalOcean Homepage</title>
+                <g fill="#0080FF" fill-rule="evenodd">
+                  <path
+                    d="M24.9153 50v-9.661c10.226 0 18.1638-10.1413 14.2372-20.904-1.4406-3.983-4.6327-7.1751-8.6158-8.6158C19.774 6.921 9.6327 14.8305 9.6327 25.0565H0C0 8.7571 15.7627-3.9548 32.8531 1.3842c7.4576 2.3446 13.418 8.2768 15.7345 15.7344C53.9266 34.2373 41.2429 50 24.9153 50">
+                  </path>
+                  <path
+                    d="M15.339 40.3672h9.6045v-9.6045H15.339zM7.9379 47.7684h7.401v-7.4012H7.938zM1.7514 40.3672H7.938v-6.1864H1.7514z">
+                  </path>
+                </g>
+              </svg>
+            </a>
+            <br><br>
+            © <script type="text/javascript">
+              document.write(new Date().getFullYear());
+
+            </script> DigitalOcean, LLC. All rights reserved.
+          </div>
+
+              <div class="vlist">
+                <span class="heading">Company</span>
+                <ul>
+                    <li>
+                      <a href="https://www.digitalocean.com/about/">About</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/about/leadership/">Leadership</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/blog/">Blog</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/careers/">Careers</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/partners/">Partners</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/referral-program/">Referral Program</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/press/">Press</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/legal/">Legal</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/trust/">Security &amp; Trust Center</a>
+                    </li>
+                </ul>
+              </div>
+              <div class="vlist">
+                <span class="heading">Products</span>
+                <ul>
+                    <li>
+                      <a href="https://www.digitalocean.com/pricing/">Pricing</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/products/">Products Overview</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/products/droplets/">Droplets</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/products/kubernetes/">Kubernetes</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/products/managed-databases/">Managed Databases</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/products/spaces/">Spaces</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/products/marketplace/">Marketplace</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/products/load-balancer/">Load Balancers</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/products/block-storage/">Block Storage</a>
+                    </li>
+                    <li>
+                      <a href="https://developers.digitalocean.com/documentation/">API Documentation</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/docs">Documentation</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/docs/release-notes/">Release Notes</a>
+                    </li>
+                </ul>
+              </div>
+              <div class="vlist">
+                <span class="heading">Community</span>
+                <ul>
+                    <li>
+                      <a href="https://www.digitalocean.com/community/tutorials">Tutorials</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/community/questions">Q&amp;A</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/community/tools">Tools and Integrations</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/community/tags">Tags</a>
+                    </li>
+                    <li>
+                      <a href="https://ideas.digitalocean.com/">Product Ideas</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/write-for-donations/">Write for DigitalOcean</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/droplets-for-demos/">Presentation Grants</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/hatch/">Hatch Startup Program</a>
+                    </li>
+                    <li>
+                      <a href="http://store.digitalocean.com/">Shop Swag</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/research/">Research Program</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/open-source/">Open Source</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/community/pages/code-of-conduct">Code of Conduct</a>
+                    </li>
+                </ul>
+              </div>
+              <div class="vlist">
+                <span class="heading">Contact</span>
+                <ul>
+                    <li>
+                      <a href="https://www.digitalocean.com/support/">Get Support</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/docs/getting-started/faq/">Trouble Signing In?</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/company/contact/sales/">Sales</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/company/contact/#abuse">Report Abuse</a>
+                    </li>
+                    <li>
+                      <a href="https://status.digitalocean.com/">System Status</a>
+                    </li>
+                </ul>
+              </div>
+        </section>
+      </footer>
+
+
+      <div id='sign-in-modal' class="hidden" role="dialog" aria-labelledby="sign-in-modal-title" aria-modal='true'>
+  <div class='mini-dialog-panel'>
+    <div class='dialog-header'>
+      <span class='close-btn'>&times;</span>
+      <span class='dialog-title' id="sign-in-modal-title">Join the Community</span>
+    </div>
+
+    <div class='dialog-body text-center'>
+      <h1 class='dialog-title'>
+        Before you can do that
+        <small>
+          To complete this action, sign in to your Community account or create a new one.
+        </small>
+      </h1>
+
+      <div class='horizontal-buttons'>
+        <a class="sign-in-link button blue-button" data-default-url="/community/auth/digitalocean" href="/community/auth/digitalocean">Sign In</a>
+        <a class="sign-up-link button blue-button" data-default-url="/community/auth/digitalocean?display=sessionless+register" href="/community/auth/digitalocean?display=sessionless+register">Sign Up</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+      <script>
+    $(function() {
+      $('#share-modal .flex-form .field input').click(function () {
+        $(this).select();
+      })
+    });
+  </script>
+  <script>
+    $(function() {
+      $('#share-modal .flex-form .field input').click(function () {
+        $(this).select();
+      })
+    });
+  </script>
+
+
+  <script>
+    $(function() {
+      if (!!window.init_sharing) {
+        window.init_sharing();
+      }
+      new window.NewsletterSignup();
+      new window.GrowableMarkdown({ target: '[data-growable-markdown]' });
+
+      createTranslationSelection({
+        $translation_language: $('#translation_language'),
+      });
+
+
+      window.initTranslationFeedbackActions(3454);
+
+      $.get('/community/tutorials/how-to-install-wordpress-with-docker-compose-ru/comments/new', function(data){
+        $('.content-comments').html(data);
+      });
+
+      $.get('/community/tutorials/how-to-install-wordpress-with-docker-compose-ru/featured_content', function(data){
+        $('.featured-items-right-bar-container').html(data);
+      });
+
+      $.get('/community/tutorials/how-to-install-wordpress-with-docker-compose-ru/helpfulness_and_share_box', function(data){
+        $('.helpfulness_and_share_box').html(data);
+      });
+    });
+  </script>
+
+  <script type="application/ld+json">
+  {"@context":"http://schema.org","@type":"Article","name":"Установка WordPress с помощью Docker Compose","headline":"Установка WordPress с помощью Docker Compose","alternativeHeadline":"Установка WordPress с помощью Docker Compose","description":"WordPress — бесплатная система управления контентом (CMS) с открытым исходным кодом, которая опирается на базу данных…","keywords":"WordPress,Docker,Nginx,MySQL,Let's Encrypt,Ubuntu 18.04,DO-Writers","url":"https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-ru","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose-ru"},"dateModified":"2020-02-13T17:16:54Z","inLanguage":"ru","accessMode":"textual","accessModeSufficient":"textual","isAccessibleForFree":true,"license":"https://creativecommons.org/licenses/by-nc-sa/4.0/","publishingPrinciples":"https://www.digitalocean.com/community/tutorials/technical-recommendations-and-best-practices-for-digitalocean-s-tutorials","author":[{"@type":"Person","name":"Kathleen Juell","@id":"https://www.digitalocean.com/community/users/katjuell"}],"datePublished":"2020-01-21T21:14:20Z","image":{"@type":"ImageObject","url":"https://www.digitalocean.com/assets/community/illustrations/DigitalOcean_Community-e00e73a18df20667c3117725e727f3ade330204dff619ad8153050ded7341627.jpg","height":375,"width":750},"interactionStatistic":[{"@type":"InteractionCounter","interactionType":"http://schema.org/LikeAction","userInteractionCount":"12"},{"@type":"InteractionCounter","interactionType":"http://schema.org/CommentAction","userInteractionCount":"1"}],"sourceOrganization":{"@type":"Organization","name":"DigitalOcean Community","url":"https://www.digitalocean.com/community"},"publisher":{"@type":"Organization","name":"DigitalOcean","url":"https://www.digitalocean.com","logo":{"@type":"ImageObject","url":"https://assets.digitalocean.com/logos/DO_Logo_horizontal_blue.png","width":351,"height":60}},"comment":[{"comment":{"@context":"http://schema.org","@type":"Comment","text":"Казалось бы, docker создан, чтобы упрощать развёртывание, а не усложнять его. По факту, шаг в сторону от docker run, требует изучения целой статьи со своими костылями и подводными камнями."}}]}
+</script>
+
+
+
+  <script>
+    $(function(){
+      $('.date-views').append('<span class=\"meta-section pageviews\"><span class=\"icon icon-eye v-mid\"><\/span><span class=\"views-count v-mid\">11.2k<\/span><span class=\"sr-only\"> views<\/span><\/span>');
+    });
+  </script>
+  <div class="mobile_nav hidden" role="dialog" aria-label="Mobile Navigation" aria-modal='true'>
+    <div class='dialog-panel'>
+      <div class='dialog-header'>
+        <span class='close-btn'>&times;</span>
+        <span class='dialog-title'></span>
+      </div>
+      <div class='dialog-body'>
+        <header>Community</header>
+        <ul role="menu">
+          <li role="menuitem">
+            <a data-activatable="true" href="/community/tutorials">Tutorials</a>
+          </li>
+          <li role="menuitem">
+            <a data-activatable="true" href="/community/questions">Questions</a>
+          </li>
+          <li role="menuitem">
+            <a href="/community/pages/write-for-digitalocean">Write for Us</a>
+          </li>
+          <li role="menuitem">
+            <a href="https://hacktoberfest.digitalocean.com">Hacktoberfest</a>
+          </li>
+          <li role="menuitem">
+            <a href="/community/tools">Tools</a>
+          </li>
+        </ul>
+
+        <header>Products</header>
+        <ul role="menu">
+          <li role="menuitem">
+            <a href="https://www.digitalocean.com/">Homepage</a>
+          </li>
+          <li role="menuitem">
+            <a href="https://www.digitalocean.com/pricing">Pricing</a>
+          </li>
+          <li role="menuitem">
+            <a href="https://www.digitalocean.com/products">Product Overview</a>
+          </li>
+          <li role="menuitem">
+            <a href="https://marketplace.digitalocean.com/">Marketplace</a>
+          </li>
+        </ul>
+
+        <header>Customers</header>
+        <ul role="menu">
+          <li role="menuitem">
+            <a href="https://cloud.digitalocean.com/login">Control Panel</a>
+          </li>
+          <li role="menuitem">
+            <a href="https://www.digitalocean.com/docs/">Documentation</a>
+          </li>
+          <li role="menuitem">
+            <a href="https://www.digitalocean.com/company/contact/#support">Contact Support</a>
+          </li>
+          <li role="menuitem">
+            <a href="https://www.digitalocean.com/company/contact/sales/">Contact Sales</a>
+          </li>
+        </ul>
+
+        <ul role="menu">
+          <li role="menuitem" class="mobile-log-in">
+              <a id="log-in" href="/community/auth/digitalocean">Sign In</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    $(function() {
+      $('.use-universal-search-js').on('click', function () {
+        $('#q').trigger('click');
+      });
+    });
+
+    window.loadUniversalSearchScript( function () {
+      var search = new UniversalSearch({
+        element_id: 'q',
+        search_on_slash: true,
+        primary_list: ['quicknav', 'community_consolidated'],
+        secondary_list: ['alldocs', 'marketplace'],
+        algolia_app_id: "6ZHEUVKJ88",
+        algolia_public_key: "c5470567eae7fa1177d43222e18ba086"
+      });
+      search.start();
+    });
+  </script>
+
+
+      <script src="https://do-community.github.io/dns-tool-embed/bundle.js" type="text/javascript"></script>
+      <script src="https://do-community.github.io/glob-tool-embed/bundle.js" type="text/javascript"></script>
+  </body>
+</html>
