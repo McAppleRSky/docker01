@@ -1,0 +1,7 @@
+terminal:
+  db mysql:
+    mbind: Operation not permitted
+      on upload wp big img
+  try add docker-compose.yaml conf
+security_opt:
+  - seccomp:unconfined

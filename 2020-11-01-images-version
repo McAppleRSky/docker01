@@ -1,0 +1,3 @@
+last img: mysql:8.0.22 wordpress:5.5.1-fpm-alpine nginx:1.19.3-alpine
+stabl nginx: mysql:8.0.22 wordpress:5.5.1-fpm-alpine nginx:1.18.0-alpine
+

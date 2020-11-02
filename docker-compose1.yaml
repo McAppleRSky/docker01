@@ -13,8 +13,6 @@ services:
     command: '--default-authentication-plugin=mysql_native_password'
     networks:
       - app-network
-    security_opt:
-      - seccomp:unconfined
   wordpress:
     depends_on:
       - db
